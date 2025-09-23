@@ -1,0 +1,13 @@
+date,time,origin,destination,duration,distance,avg_speed
+2025-09-24,02:10,"Kempegowda Bus Station, Majestic","Sparsh Hospital, RR Nagar",20,9.8,29.4
+2025-09-24,02:10,"Bethel AG Church, Hebbal",SMVT Railway Station,20,9.9,29.7
+2025-09-24,02:10,"Big Bull Temple, Basavanagudi","Shri Someshwara Swamy Temple, Halasuru",20,10.1,30.3
+2025-09-24,02:10,Rashtreeya Vidyalaya Road Metro Station,Vijayanagar Metro Station,19,10.6,33.47
+2025-09-24,02:10,Jaya Prakash Narayana Park,"Coles Park, Fraser Town",17,9.9,34.94
+2025-09-24,02:10,Benniganahalli Metro Station,"Embassy TechVillage, Devarabisanahalli",17,10.1,35.65
+2025-09-24,02:10,Swami Vivekananda Road Metro Station,"Christ University, Hosur Main Road",16,10.2,38.25
+2025-09-24,02:10,Lulu Mall Bengaluru,Nexus Mall Koramangala,16,10.5,39.38
+2025-09-24,02:10,The Rameshwaram Cafe @ Brookfield,"Gawky Goose, Wind Tunnel Rd",14,9.4,40.29
+2025-09-24,02:10,Jaya Prakash Nagar Metro Station,"Hemavathi Park, HSR Layout",14,10.2,43.71
+2025-09-24,02:10,Kudlu Gate Metro Station,Biocon Campus,14,10.3,44.14
+2025-09-24,02:10,MG Road Metro Station,"Kempegowda International Airport, Bengaluru",35,34.3,58.8
