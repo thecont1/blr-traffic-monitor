@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Bangalore Traffic Monitoring Routes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body, #map { height: 100%; margin: 0; padding: 0; }
+    .legend {
+      background: white; padding: 8px 10px; border: 1px solid #ccc;
+      font: 13px/1.3 sans-serif; position: absolute; bottom: 20px; left: 20px; z-index: 5;
+      max-width: 320px;
+    }
+    .legend .row { margin: 4px 0; display: flex; align-items: center; gap: 8px; }
+    .legend .swatch { width: 14px; height: 14px; display: inline-block; border: 1px solid #777; }
+  </style>
+  <!-- OLC (Plus Codes) JS library -->
+  <script src="https://cdn.jsdelivr.net/gh/google/open-location-code@master/js/src/openlocationcode.js"></script>
+  <!-- PapaParse for CSV parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <!-- Google Maps JS API is loaded after we define initMap (see below) -->
+  <script>
+    // Reference location near central Bengaluru for recovering short codes
+    const REF_LAT = 12.9514242;
+    const REF_LNG = 77.6590212;
+
+    // CSV paths (relative to this HTML). Serve over HTTP(S), not file://
+    // Adjust these paths if your folder layout differs.
+    const ROUTES_CSV = "csv-routes.csv";
+    const LOCATIONS_CSV = "csv-locations_12.9514242_77.6590212.csv";
+
+    // Will be populated from CSVs
+    let routeCodes = [];        // ["ORIGIN|DEST", ...]
+    let labels = {};            // { plus_code: "Human label" }
+
+    // Light/monochrome map style to make colored routes pop
+    const lightStyle = [
+      { elementType: "geometry", stylers: [{ color: "#f5f5f5" }] },
+      { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#616161" }] },
+      { elementType: "labels.text.stroke", stylers: [{ color: "#f5f5f5" }] },
+      { featureType: "administrative.land_parcel", elementType: "labels.text.fill", stylers: [{ color: "#bdbdbd" }] },
+      { featureType: "poi", elementType: "geometry", stylers: [{ color: "#eeeeee" }] },
+      { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
+      { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#e5e5e5" }] },
+      { featureType: "poi.park", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] },
+      { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
+      { featureType: "road.arterial", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
+      { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#dadada" }] },
+      { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#616161" }] },
+      { featureType: "road.local", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] },
+      { featureType: "transit.line", elementType: "geometry", stylers: [{ color: "#e5e5e5" }] },
+      { featureType: "transit.station", elementType: "geometry", stylers: [{ color: "#eeeeee" }] },
+      { featureType: "water", elementType: "geometry", stylers: [{ color: "#c9c9c9" }] },
+      { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] }
+    ];
+
+    // Generate N visually distinct colors
+    function generateColors(n) {
+      return Array.from({ length: n }, (_, i) => `hsl(${Math.round((360 * i) / Math.max(1,n))}, 85%, 45%)`);
+    }
+
+    let map;
+
+    function recoverFullPlusCode(shortCode) {
+      if (OpenLocationCode.isFull(shortCode)) return shortCode;
+      return OpenLocationCode.recoverNearest(shortCode, REF_LAT, REF_LNG);
+    }
+
+    function plusCodeCenterLatLng(code) {
+      const area = OpenLocationCode.decode(code);
+      return { lat: area.latitudeCenter, lng: area.longitudeCenter };
+    }
+
+    // Try to find a human label for either a short or a full code
+    function markerTitle(code) {
+      if (labels[code]) return `${labels[code]} (${code})`;
+      // If code is full, try shortening near REF to see if the short exists in labels
+      if (OpenLocationCode.isFull(code)) {
+        try {
+          const short = OpenLocationCode.shorten(code, REF_LAT, REF_LNG);
+          if (labels[short]) return `${labels[short]} (${short})`;
+        } catch (_) {}
+      }
+      return code;
+    }
+
+    // Plain label without appending Plus Code (for legend and marker titles)
+    function labelFor(code) {
+      if (labels[code]) return labels[code];
+      if (OpenLocationCode.isFull(code)) {
+        try {
+          const short = OpenLocationCode.shorten(code, REF_LAT, REF_LNG);
+          if (labels[short]) return labels[short];
+        } catch (_) {}
+      }
+      return code;
+    }
+
+    async function drawRoute(directionsService, directionsRenderer, origin, destination, color) {
+      return new Promise((resolve) => {
+        directionsService.route(
+          {
+            origin,
+            destination,
+            travelMode: google.maps.TravelMode.DRIVING,
+            provideRouteAlternatives: false
+          },
+          (result, status) => {
+            if (status === google.maps.DirectionsStatus.OK) {
+              directionsRenderer.setDirections(result);
+              const line = directionsRenderer.getDirections().routes[0].overview_path;
+              new google.maps.Polyline({
+                map,
+                path: line,
+                strokeColor: color,
+                strokeOpacity: 0.95,
+                strokeWeight: 3,
+                // Single directional arrow at the midpoint to indicate B direction
+                icons: [{
+                  icon: {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    scale: 3,
+                    fillColor: '#ffffff',      // white fill
+                    fillOpacity: 1,
+                    strokeColor: color,        // thin colored border
+                    strokeOpacity: 1,
+                    strokeWeight: 2
+                  },
+                  offset: '50%'
+                }]
+              });
+              directionsRenderer.setMap(null);
+            } else {
+              console.warn("Directions request failed:", status, origin, destination);
+            }
+            resolve();
+          }
+        );
+      });
+    }
+
+    // --- CSV loading helpers ---
+    async function fetchText(url) {
+      const res = await fetch(url, { cache: "no-cache" });
+      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
+      return await res.text();
+    }
+
+    async function loadLabels() {
+      const csv = await fetchText(LOCATIONS_CSV);
+      const parsed = Papa.parse(csv, { header: true, skipEmptyLines: true });
+      const out = {};
+      for (const row of parsed.data) {
+        if (!row.plus_code) continue;
+        out[row.plus_code.trim()] = (row.location || row.label || row.name || row.site || row.place || "").trim();
+      }
+      return out;
+    }
+
+    async function loadRouteCodes() {
+      const csv = await fetchText(ROUTES_CSV);
+      const parsed = Papa.parse(csv, { header: true, skipEmptyLines: true });
+      const list = [];
+      for (const row of parsed.data) {
+        if (!row.route_code) continue;
+        const rc = row.route_code.replace(/^"|"$/g, "").trim(); // strip surrounding quotes if present
+        if (rc.includes("|")) list.push(rc);
+      }
+      return list;
+    }
+
+    async function initMap() {
+      // Load CSV-driven data first
+      try {
+        [labels, routeCodes] = await Promise.all([loadLabels(), loadRouteCodes()]);
+        console.log('[routes.html] Labels loaded:', Object.keys(labels).length);
+        console.log('[routes.html] Routes loaded:', routeCodes.length, routeCodes);
+      } catch (e) {
+        console.error("Failed to load CSVs:", e);
+      }
+
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: REF_LAT, lng: REF_LNG },
+        zoom: 11,
+        mapTypeId: "roadmap",
+        styles: lightStyle,
+      });
+
+      const bounds = new google.maps.LatLngBounds();
+      const directionsService = new google.maps.DirectionsService();
+
+      // Build legend
+      const legend = document.createElement("div");
+      legend.className = "legend";
+      legend.innerHTML = "<strong>Routes</strong>";
+      map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+
+      // Colors based on number of routes
+      const colors = generateColors(routeCodes.length);
+
+      // Process each origin|destination pair
+      for (let i = 0; i < routeCodes.length; i++) {
+        const [oCodeRaw, dCodeRaw] = routeCodes[i].split("|");
+        const oCode = oCodeRaw.replace(/\"/g, "").trim();
+        const dCode = dCodeRaw.replace(/\"/g, "").trim();
+
+        const oFull = recoverFullPlusCode(oCode);
+        const dFull = recoverFullPlusCode(dCode);
+
+        const oLL = plusCodeCenterLatLng(oFull);
+        const dLL = plusCodeCenterLatLng(dFull);
+
+        // Minimal markers to reduce clutter: hollow origin, solid destination
+        const om = new google.maps.Marker({
+          map,
+          position: oLL,
+          title: labelFor(oCode),
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 6,
+            fillColor: '#ffffff',
+            fillOpacity: 1,
+            strokeColor: colors[i % colors.length],
+            strokeWeight: 2
+          }
+        });
+        const dm = new google.maps.Marker({
+          map,
+          position: dLL,
+          title: labelFor(dCode),
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 5,
+            fillColor: colors[i % colors.length],
+            fillOpacity: 1,
+            strokeColor: '#333',
+            strokeWeight: 1
+          }
+        });
+
+        bounds.extend(om.getPosition());
+        bounds.extend(dm.getPosition());
+
+        // Draw the route polyline (via Directions API)
+        const renderer = new google.maps.DirectionsRenderer({ suppressPolylines: true, suppressMarkers: true });
+        await drawRoute(directionsService, renderer, oLL, dLL, colors[i % colors.length]);
+
+        // Legend entry
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
+          <span class="swatch" style="background:${colors[i % colors.length]}"></span>
+          <span>${labelFor(oCode)} → ${labelFor(dCode)}</span>
+        `;
+        legend.appendChild(row);
+      }
+
+      map.fitBounds(bounds);
+    }
+  </script>
+  <!-- Load Google Maps JS API after we obtain the API key from config.js (not committed) -->
+  <script>
+    // Make the callback visible to the Google Maps loader
+    window.initMap = initMap;
+
+    // Small helper to show a visible error overlay on the page
+    function showOverlay(msg) {
+      const el = document.createElement('div');
+      el.style.cssText = 'position:absolute;top:12px;left:12px;max-width:520px;background:#fff;border:1px solid #ccc;padding:10px 12px;font:13px/1.3 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.08)';
+      el.textContent = msg;
+      document.body.appendChild(el);
+    }
+
+    // Dynamically load config.js from either ./config.js or /blr-traffic-monitor/config.js
+    function loadConfigJs() {
+      return new Promise((resolve, reject) => {
+        const tryPaths = [
+          'config.js',
+          '/blr-traffic-monitor/config.js'
+        ];
+        let idx = 0;
+        function tryNext() {
+          if (idx >= tryPaths.length) return reject(new Error('config.js not found'));
+          const s = document.createElement('script');
+          s.src = tryPaths[idx++];
+          s.defer = true; // not strictly necessary for dynamic scripts
+          s.onload = () => resolve();
+          s.onerror = () => {
+            // remove the bad script element before trying next
+            s.remove();
+            tryNext();
+          };
+          document.head.appendChild(s);
+        }
+        tryNext();
+      });
+    }
+
+    function loadGoogleMaps() {
+      try {
+        const key = window.GOOGLE_MAPS_API_KEY;
+        if (!key) {
+          console.error('[routes.html] GOOGLE_MAPS_API_KEY not found. Expected blr-traffic-monitor/config.js to set window.GOOGLE_MAPS_API_KEY = "..."');
+          showOverlay('Missing GOOGLE_MAPS_API_KEY. Create blr-traffic-monitor/config.js with: window.GOOGLE_MAPS_API_KEY = "YOUR_KEY"');
+          return;
+        }
+        const s = document.createElement('script');
+        s.defer = true;
+        s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(key) + '&libraries=geometry&callback=initMap';
+        s.onerror = function() {
+          console.error('[routes.html] Google Maps JS failed to load');
+          showOverlay('Failed to load Google Maps JS API. Check API key restrictions and network.');
+        };
+        document.head.appendChild(s);
+
+        // If after 6s google.maps is still undefined, surface a visible hint
+        setTimeout(function() {
+          if (!(window.google && window.google.maps)) {
+            console.warn('[routes.html] Google Maps still not available after timeout');
+            showOverlay('Google Maps did not initialize. Ensure your key allows referrer http://localhost:8000/* and that Maps JavaScript API + Directions API are enabled.');
+          }
+        }, 6000);
+      } catch (e) {
+        console.error('[routes.html] Exception while loading Google Maps API:', e);
+        showOverlay('Exception while loading Google Maps API. See console for details.');
+      }
+    }
+
+    // Boot: load config first, then maps
+    loadConfigJs()
+      .then(loadGoogleMaps)
+      .catch(() => {
+        console.error('[routes.html] Could not load config.js from either ./config.js or /blr-traffic-monitor/config.js');
+        showOverlay('Could not load config.js. Place it next to routes.html or at /blr-traffic-monitor/config.js');
+      });
+  </script>
+ </head>
+ <body>
+   <div id="map"></div>
+ </body>
+ </html>
