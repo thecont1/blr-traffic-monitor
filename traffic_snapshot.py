@@ -181,10 +181,11 @@ def main():
     df["distance"] = df["distance"].astype(float)
     df["duration"] = df["duration"].astype(int)
 
-    if os.path.exists(out_file + "_raw.csv"):
-        df.to_csv(out_file + "_raw.csv", mode="a", header=False, index=False)
+    raw_path = out_file + "_raw.csv"
+    if os.path.exists(raw_path):
+        df.to_csv(raw_path, mode="a", header=False, index=False)
     else:
-        df.to_csv(out_file + "_raw.csv", mode="w", header=df.columns, index=False)
+        df.to_csv(raw_path, mode="w", header=df.columns, index=False)
 
     df_traffic = df.copy()
     df_traffic['avg_speed'] = round(df_traffic['distance'] / (df_traffic['duration'] / 60), 2)
@@ -201,8 +202,8 @@ def main():
     else:
         df_traffic.to_csv(processed_path, mode="w", header=df_traffic.columns, index=False)
 
-    raw_path = out_file + "_raw.csv"
-    print(f"[traffic_snapshot] wrote {len(df)} rows to {raw_path} and {len(df_traffic)} rows to {processed_path}", file=sys.stderr)
+    logs = df_traffic.tail(1)
+    print(f"{logs['date'].iloc[0]} {logs['time'].iloc[0]} [traffic_snapshot] {logs['duration'].iloc[0]} mins from {logs['origin'].iloc[0]} to {logs['destination'].iloc[0]} - {logs['avg_speed'].iloc[0]} Km/hr.")
     return 0
 
 if __name__ == "__main__":
