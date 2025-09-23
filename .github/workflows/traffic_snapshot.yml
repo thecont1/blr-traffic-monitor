@@ -3,6 +3,7 @@ name: Bangalore Traffic Snapshot
 on:
   schedule:
     - cron: "10 * * * *"
+      timezone: Asia/Kolkata
   workflow_dispatch: {}
 
 jobs:
