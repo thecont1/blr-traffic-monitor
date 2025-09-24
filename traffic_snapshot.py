@@ -198,7 +198,7 @@ def main():
     df["distance"] = df["distance"].astype(float)
     df["duration"] = df["duration"].astype(int)
 
-    raw_path = out_file + "_raw.csv"
+    raw_path = out_file + ".csv"
     if os.path.exists(raw_path):
         df.to_csv(raw_path, mode="a", header=False, index=False)
     else:
