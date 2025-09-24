@@ -219,7 +219,7 @@ def main():
     else:
         df_traffic.to_csv(processed_path, mode="w", header=df_traffic.columns, index=False)
 
-    logs = df_traffic.tail(1)
+    logs = df_traffic[df_traffic['duration'] == df_traffic['duration'].max()]
     print(f"{logs['date'].iloc[0]} {logs['time'].iloc[0]} [traffic_snapshot] {logs['duration'].iloc[0]} mins from {logs['origin'].iloc[0]} to {logs['destination'].iloc[0]} - {logs['avg_speed'].iloc[0]} Km/hr.")
     return 0
 
