@@ -213,12 +213,6 @@ def main():
     df_traffic['destination'] = df_traffic['destination'].map(locations_df.set_index('plus_code')['location'])
     df_traffic = df_traffic[['date', 'time', 'origin', 'destination', 'duration', 'distance', 'avg_speed']]
 
-    processed_path = out_file + "_processed.csv"
-    if os.path.exists(processed_path):
-        df_traffic.to_csv(processed_path, mode="a", header=False, index=False)
-    else:
-        df_traffic.to_csv(processed_path, mode="w", header=df_traffic.columns, index=False)
-
     logs = df_traffic[df_traffic['duration'] == df_traffic['duration'].max()]
     print(f"{logs['date'].iloc[0]} {logs['time'].iloc[0]} [traffic_snapshot] {logs['duration'].iloc[0]} mins from {logs['origin'].iloc[0]} to {logs['destination'].iloc[0]} - {logs['avg_speed'].iloc[0]} Km/hr.")
     return 0
