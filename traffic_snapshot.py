@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import os, time, re, urllib.parse
 from datetime import datetime
+from functools import lru_cache
+from zoneinfo import ZoneInfo
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -11,6 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from openlocationcode import openlocationcode as olc
+from timezonefinder import TimezoneFinder
 global locations_data, referenceLatitude, referenceLongitude
 locations_data = "csv-locations_12.9514242_77.6590212.csv"
 root = os.path.splitext(locations_data)[0]
@@ -20,6 +23,19 @@ referenceLongitude = float(referenceLongitude)
 locations_df = pd.read_csv(locations_data)
 routes_df = pd.read_csv("csv-routes.csv")
 out_file = "csv-bangalore_traffic"
+tf = TimezoneFinder()
+
+@lru_cache(maxsize=1)
+def get_reference_tz():
+    tz_name = tf.timezone_at(lat=referenceLatitude, lng=referenceLongitude)
+    if tz_name is None:
+        tz_name = tf.closest_timezone_at(lat=referenceLatitude, lng=referenceLongitude)
+    if tz_name is None:
+        tz_name = "Asia/Kolkata"
+    return ZoneInfo(tz_name)
+
+def get_reference_now():
+    return datetime.now(get_reference_tz())
 
 def create_driver(headless: bool = True) -> webdriver.Chrome:
     opts = Options()
@@ -144,8 +160,9 @@ def get_traffic_report(driver, origin, destination, mode='car', max_retries=3, r
 def main():
     driver = create_driver(headless=True)
     df = pd.DataFrame()
-    date_now = datetime.now().date()
-    time_now = datetime.now().time().strftime("%H:%M")
+    now_ref = get_reference_now()
+    date_now = now_ref.date()
+    time_now = now_ref.strftime("%H:%M")
     try:
         for index, route in routes_df.iterrows():
             origin_pc, destination_pc = get_route_points(route["route_code"])
