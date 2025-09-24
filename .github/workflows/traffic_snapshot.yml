@@ -1,5 +1,4 @@
 name: Bangalore Traffic Snapshot
-
 on:
   schedule:
     - cron: "45 * * * *"
@@ -8,7 +7,6 @@ on:
 jobs:
   snapshot:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,9 +19,9 @@ jobs:
       - name: Create venv
         run: uv venv .venv
 
-      - name: Install dependencies
-        run: .venv/bin/uv pip install -r requirements.txt
-      
+      - name: Install dependencies (using uv in venv)
+        run: uv pip install -r requirements.txt --python .venv/bin/python
+
       - name: Run and capture snapshot message
         id: snapshot
         run: |
