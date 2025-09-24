@@ -17,7 +17,7 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v2
         with:
-          version: "3.13"
+          version: latest
 
       - name: Create venv
         run: uv venv .venv
