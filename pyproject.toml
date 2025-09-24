@@ -15,5 +15,6 @@ dependencies = [
     "python-dotenv>=1.1.1",
     "requests>=2.32.5",
     "selenium>=4.35.0",
+    "timezonefinder>=8.1.0",
     "tqdm>=4.67.1",
 ]
