@@ -223,16 +223,21 @@ def main():
         df.to_csv(raw_path, mode="w", header=df.columns, index=False)
 
     df_traffic = df.copy()
+    df_traffic['year'] = pd.to_datetime(df_traffic['date']).dt.year
+    df_traffic['month'] = pd.to_datetime(df_traffic['date']).dt.month
+    df_traffic['date'] = pd.to_datetime(df_traffic['date']).dt.day
+    df_traffic['hour'] = pd.to_datetime(df_traffic['time'], format='%H:%M', errors='coerce').dt.hour
     df_traffic['avg_speed'] = round(df_traffic['distance'] / (df_traffic['duration'] / 60), 2)
     df_traffic['origin'] = df_traffic['route_code'].str.split('|').str[0]
     df_traffic['destination'] = df_traffic['route_code'].str.split('|').str[1]
     df_traffic = df_traffic.sort_values('avg_speed', ascending=True).reset_index(drop=True)
     df_traffic['origin'] = df_traffic['origin'].map(locations_df.set_index('plus_code')['location'])
     df_traffic['destination'] = df_traffic['destination'].map(locations_df.set_index('plus_code')['location'])
-    df_traffic = df_traffic[['date', 'time', 'origin', 'destination', 'duration', 'distance', 'avg_speed']]
+    df_traffic = df_traffic[['year', 'month', 'date', 'hour', 'origin', 'destination', 'duration', 'distance', 'avg_speed']]
 
     logs = df_traffic[df_traffic['duration'] == df_traffic['duration'].max()]
-    print(f"{logs['date'].iloc[0]} {logs['time'].iloc[0]} [traffic_snapshot] {logs['duration'].iloc[0]} mins from {logs['origin'].iloc[0]} to {logs['destination'].iloc[0]} - {logs['avg_speed'].iloc[0]} Km/hr.")
+    print(f"{logs['hour'].iloc[0]}hrs [traffic_snapshot] {logs['duration'].iloc[0]} mins @ {logs['avg_speed'].iloc[0]} Km/hr (\u2192 {logs['destination'].iloc[0]})")
+    
     return 0
 
 if __name__ == "__main__":
