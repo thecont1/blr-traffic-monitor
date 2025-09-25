@@ -124,7 +124,7 @@ def get_duration(s):
         return np.nan
     return mins
 
-def get_traffic_report(driver, origin, destination, mode='car', max_retries=3, retry_delay=10):
+def get_traffic_report(driver, origin, destination, mode='car', max_retries=3, retry_delay=60):
     modes = {'bike': "\ue9f9", 'car': "\ue531", 'transit': "\ue535"}
     mode = modes.get(mode, modes['car'])
 
