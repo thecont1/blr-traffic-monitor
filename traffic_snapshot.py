@@ -2,6 +2,7 @@ import sys
 import numpy as np
 import pandas as pd
 import os, time, re, urllib.parse
+import glob
 from datetime import datetime
 from functools import lru_cache
 from zoneinfo import ZoneInfo
@@ -15,11 +16,28 @@ from selenium.webdriver.support import expected_conditions as EC
 from openlocationcode import openlocationcode as olc
 from timezonefinder import TimezoneFinder
 global locations_data, referenceLatitude, referenceLongitude
-locations_data = "csv-locations_12.9514242_77.6590212.csv"
-root = os.path.splitext(locations_data)[0]
-_, referenceLatitude, referenceLongitude = root.split("_")
-referenceLatitude = float(referenceLatitude)
-referenceLongitude = float(referenceLongitude)
+LOCATION_GLOB = "csv-locations*.csv"
+_location_matches = sorted(glob.glob(LOCATION_GLOB))
+if not _location_matches:
+    raise FileNotFoundError(f"No location files found matching pattern: {LOCATION_GLOB}")
+
+locations_data = _location_matches[0]
+root = os.path.splitext(os.path.basename(locations_data))[0]
+parts = root.split("_")
+if len(parts) < 3:
+    raise ValueError(
+        "Expected location filename format 'csv-locations_<lat>_<lon>.csv', "
+        f"got: {locations_data}"
+    )
+
+try:
+    referenceLatitude = float(parts[-2])
+    referenceLongitude = float(parts[-1])
+except ValueError as exc:
+    raise ValueError(
+        "Failed to parse latitude/longitude from location filename. "
+        f"Filename: {locations_data}"
+    ) from exc
 locations_df = pd.read_csv(locations_data)
 routes_df = pd.read_csv("csv-routes.csv")
 out_file = "csv-bangalore_traffic"
