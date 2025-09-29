@@ -1,8 +1,13 @@
 name: Bangalore Traffic Snapshot
 on:
   schedule:
-    - cron: "45 * * * *"
+    - cron: "45 * * * *"   # primary (HH:15 IST)
+    - cron: "46 * * * *"   # fallback (HH:16 IST)
   workflow_dispatch: {}
+
+concurrency:
+  group: traffic-snapshot
+  cancel-in-progress: false
 
 jobs:
   snapshot:
@@ -16,7 +21,15 @@ jobs:
         with:
           version: latest
 
-      - name: Create venv
+      - name: Cache uv venv
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            venv-${{ runner.os }}-
+
+      - name: Create venv (idempotent)
         run: uv venv .venv
 
       - name: Install dependencies (using uv in venv)
@@ -31,10 +44,13 @@ jobs:
           echo "$message"
           echo "message=$message" >> "$GITHUB_OUTPUT"
 
-      - name: Commit results
+      - name: Deduplicate CSV and commit
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
+          # Dedup by (date,time,route_code)
+          tmpfile=$(mktemp)
+          awk -F, '!seen[$1 FS $2 FS $3]++' csv-bangalore_traffic.csv > "$tmpfile" && mv "$tmpfile" csv-bangalore_traffic.csv
           git add csv-bangalore_traffic.csv || true
           git commit -m "${{ steps.snapshot.outputs.message }}" || echo "No changes"
           git push || true
