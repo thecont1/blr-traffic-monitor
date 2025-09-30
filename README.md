@@ -160,24 +160,14 @@ Perfect for:
 - **Timezone awareness** for accurate timestamps
 - **CSV-based storage** for easy data sharing and analysis
 
-## Contributing
-
-Have ideas for improvement? Found a bug? Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
 ## License
 
 This project is licensed under the Apache 2.0 License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Acknowledgments
 
-- Uses Google Maps for traffic data
-- Built with modern Python tools and best practices
-- Inspired by the need to understand Bangalore's complex traffic patterns
+- Uses Google Maps for traffic data and Google Plus Codes for location identification.
+- Thanks to Bangalore city's perennial traffic woes for driving the motivation behind this project.
 
 ---
 
