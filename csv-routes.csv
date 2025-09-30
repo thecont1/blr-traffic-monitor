@@ -1,13 +1,13 @@
-route_code
-2HM2+P8|XJV5+RG
-XJG4+7J|5PX4+HQ
-VJRQ+2M|RMJJ+F4
-WH5F+26|WJ8X+F5W
-XJPW+92|WJP4+FF
-2HVW+G8|XJXR+WG
-XHFC+WMF|WGGC+MG
-XPC7+72|XM33+J3
-WHCJ+26|XGCP+FV
-XMW9+G8|WMJR+V4
-XHJ7+MG|WJM6+VC
-WHR9+R6|XJGF+6J
+route_code,human_readable_label
+2HM2+P8|XJV5+RG,"     # Jaya Prakash Narayana Park -> Coles Park, Fraser Town"
+XJG4+7J|5PX4+HQ,"     # MG Road Metro Station -> Kempegowda International Airport, Bengaluru"
+VJRQ+2M|RMJJ+F4,"     # Kudlu Gate Metro Station -> Biocon Campus"
+WH5F+26|WJ8X+F5W,"    # Jaya Prakash Nagar Metro Station -> Hemavathi Park, HSR Layout"
+XJPW+92|WJP4+FF,"     # Swami Vivekananda Road Metro Station -> Christ University, Hosur Main Road"
+XPC7+72|XM33+J3,"     # The Rameshwaram Cafe @ Brookfield -> Gawky Goose, Wind Tunnel Rd"
+2HVW+G8|XJXR+WG,"     # Bethel AG Church, Hebbal -> SMVT Railway Station"
+WHCJ+26|XGCP+FV,"     # RV Road Metro Station, Jayanagar 5th Block -> Vijayanagar Metro Station, Chord Road"
+XMW9+G8|WMJR+V4,"     # Benniganahalli Metro Station -> Embassy TechVillage, Devarabisanahalli"
+XHJ7+MG|WJM6+VC,"     # Lulu Mall Bengaluru -> Nexus Mall Koramangala"
+WHR9+R6|XJGF+6J,"     # Big Bull Temple, Basavanagudi -> Shri Someshwara Swamy Temple, Halasuru"
+WGG8+G5|XH7P+G6,"     # The Watering Hole, Rajarajeshwari Nagar -> Sir Puttanna Chetty Town Hall, Bangalore"
