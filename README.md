@@ -1,17 +1,42 @@
-# Bangalore Traffic Monitor 🚗📊
+# Bangalore Traffic Monitor 🚗📊 (WIP)
 
 A smart system that automatically monitors and analyzes real-time traffic conditions on key routes throughout Bangalore city. Perfect for commuters, city planners, and anyone curious about traffic patterns in India's Silicon Valley.
 
+### Traffic Square
+
+   ```bash
+   df_plot = plot_traffic_square(df, days_offset=1.5, label='short', height='square', dpi=300)
+   ```
+
+![Traffic Square](images/plot01.png)
+
+### Route Boxplots
+
+   ```bash
+   plot_route_boxplots(df, avg_speed=True, duration=True, legend=True)
+   ```
+
+![Route Boxplots](images/plot02.png)
+
+### Traffic Square with Boxplots (Chained)
+
+   ```bash
+   plot_route_boxplots(
+       plot_traffic_square(df, days_offset=7, label='full', height='extrawide', dpi=300), 
+           avg_speed=True, duration=True, legend=False)
+   ```
+
+![Traffic Square with Boxplots](images/plot03.png)
+
+### The R³S² Score
+
+![R³S² Score](images/plot04.png)
+
+
 ## What This Does
 
-Ever wondered which routes in Bangalore have the worst traffic? This system continuously monitors predetermined routes across the city and gives you insights like:
-
-- **Real-time travel times** between popular locations
-- **Average speeds** on different routes
-- **Traffic patterns** throughout the day
-- **Historical data** to spot trends
-
-Think of it as your personal traffic analyst that works 24/7!
+- Continuously monitors predetermined routes of roughly equal length across the city
+- Visualises traffic patterns on a single plot for easy route quality comparison
 
 ## How It Works
 
