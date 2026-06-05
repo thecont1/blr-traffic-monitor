@@ -45,3 +45,7 @@ weather.md
 .kiro/
 .kilo/
 .qoder/
+
+# Local development artifacts
+.pytest_cache/
+.hermes/
