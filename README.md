@@ -20,8 +20,6 @@ Because everything is stored as plain CSV files in a public GitHub repository, t
 - [Quick Start](#quick-start)
 - [Data](#data)
 - [How it works](#how-it-works)
-- [Automation & Reliability](#automation--reliability)
-- [Tips & Troubleshooting](#tips--troubleshooting)
 - [License](#license)
 
 ---
@@ -160,7 +158,7 @@ The companion Python module `data_utils.py` adds further cleaning when you load 
 
 - Removes duplicates (same route, same day, same hour)
 - Computes `avg_speed` from `distance / (duration / 60)`
-- Adds temporal features: `timestamp`, `day_of_week`, `is_weekend`, `time_category`
+- Adds temporal features: `timestamp`, `day_of_week`, `is_weekend`, `time_category` (late_night, morning, morning_rush, early_afternoon, late_afternoon, evening_rush, night)
 
 ---
 
@@ -190,9 +188,18 @@ cron-job.org  ──►  Cloudflare Worker  ──►  GitHub Actions
 
 1. **Trigger** — An external scheduler or manual dispatch triggers the GitHub Actions workflow.
 2. **Scraping** — A runner installs `uv`, launches Chrome, and runs `traffic_snapshot.py`.
-3. **Storage** — New rows are appended to the traffic CSV and committed.
+3. **Storage** — New rows are appended to the traffic CSV and committed. If the remote has diverged (e.g. concurrent workflow runs), the runner automatically rebases and retries with `--force-with-lease` so no data is lost.
 4. **Consumption** — TraffiCOracle (or your own script) fetches the updated CSV from GitHub's raw-content URL.
 
 ### Deduplication
 
 A daily deduplication pass keeps one reading per route per hour in the historical dataset. Recent data (< 24 hours) is left untouched so the current day's analysis benefits from higher-frequency readings. The dedup is idempotent and commits the cleaned file with a count of removed records.
+
+## Licensing
+
+This repository contains two separately licensed parts:
+
+- **Code**: [GNU AGPL v3.0](https://github.com/thecont1/traffic-monitor-lizard/blob/main/LICENSE_CODE.md)
+- **Dataset**: [CC BY 4.0](https://github.com/thecont1/traffic-monitor-lizard/blob/main/LICENSE_DATA.md)
+
+The code and data are intentionally licensed separately so the data can remain openly reusable while the collection engine stays open and forkable.
