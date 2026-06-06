@@ -1,14 +1,14 @@
 route_code,route_name_short,accuweather_station,temp,temp_flag,realfeel,realfeel_flag,humidity,rsi_flag,rsi_forecast,aqi,aqi_flag
-XJG4+7J|5PX4+HQ,Airport Expy,shantala-nagar/3352203,26,Cloudy,26,Pleasant,69,No Precipitation,Rain starting in 39 min,90,Poor
-XHJ7+MG|WJM6+VC,Central Diagonal 1,subhash-nagar/3352215,26,Cloudy,26,Pleasant,72,No Precipitation,Rain starting in 51 min,65,Poor
-WHR9+R6|XJGF+6J,Central Diagonal 2,basavanagudi/3352257,26,Rain,25,Pleasant,70,No Precipitation,Rain starting in 25 min,92,Poor
-WH5F+26|WJ8X+F5W,Double Decker Flyover,pattabhiram-nagar/3352276,26,Rain,25,Pleasant,69,No Precipitation,Rain starting in 26 min,72,Poor
-XJPW+92|WJP4+FF,East Inner Ring,hoysala-nagar/3352194,26,Rain,25,Pleasant,71,No Precipitation,Rain starting in 46 min,83,Poor
-XMW9+G8|WMJR+V4,East Outer Ring,mahadevapura/2864201,28,Cloudy,27,Very Warm,67,No Precipitation,Rain starting in 58 min,76,Poor
-VJRQ+2M|RMJJ+F4,Hosur Road,konappana-agrahara/2866292,26,Cloudy,26,Pleasant,71,No Precipitation,Rain starting in 36 min,70,Poor
-WGG8+G5|XH7P+G6,Mysore Road,deepanjali-nagar/3352240,27,Cloudy,26,Pleasant,65,No Precipitation,No precipitation for at least 120 min,88,Poor
-2HM2+P8|XJV5+RG,North Inner Ring,malleswaram/890626,26,Cloudy,26,Pleasant,74,No Precipitation,Rain starting in 69 min,81,Poor
-2HVW+G8|XJXR+WG,North Outer Ring,kammanahalli/3352184,27,Rain,24,Pleasant,69,No Precipitation,Rain starting in 53 min,81,Poor
-XPC7+72|XM33+J3,Old Airport Road,thubarahalli/2865004,28,Cloudy,27,Very Warm,67,No Precipitation,No precipitation for at least 120 min,76,Poor
-WP44+W8|WJFH+XQ,Sarjapur Road,doddakannalli/2865544,,,,,,No Precipitation,No precipitation for at least 120 min,71,Poor
-XG48+2W|VHWC+C3,South Outer Ring,hosakerehalli/3352261,26,Rain,25,Pleasant,70,,,92,Poor
+XJG4+7J|5PX4+HQ,Airport Expy,shantala-nagar/3352203,26,Cloudy,25,Pleasant,73,No Precipitation,Rain starting in 30 min,90,Poor
+XHJ7+MG|WJM6+VC,Central Diagonal 1,subhash-nagar/3352215,25,Rain,23,Pleasant,76,No Precipitation,Rain will likely form in the area in 45 min,65,Poor
+WHR9+R6|XJGF+6J,Central Diagonal 2,basavanagudi/3352257,26,Cloudy,25,Pleasant,72,No Precipitation,Rain will likely form in the area in 57 min,,
+WH5F+26|WJ8X+F5W,Double Decker Flyover,pattabhiram-nagar/3352276,26,Cloudy,25,Pleasant,72,,,72,Poor
+XJPW+92|WJP4+FF,East Inner Ring,hoysala-nagar/3352194,26,Cloudy,25,Pleasant,75,No Precipitation,Rain starting in 58 min,,
+XMW9+G8|WMJR+V4,East Outer Ring,mahadevapura/2864201,26,Cloudy,26,Pleasant,73,No Precipitation,Rain starting in 31 min,76,Poor
+VJRQ+2M|RMJJ+F4,Hosur Road,konappana-agrahara/2866292,26,Cloudy,25,Pleasant,72,No Precipitation,Rain will likely form in the area in 13 min,70,Poor
+WGG8+G5|XH7P+G6,Mysore Road,deepanjali-nagar/3352240,25,Thunderstorm,22,Pleasant,71,No Precipitation,No precipitation for at least 120 min,88,Poor
+2HM2+P8|XJV5+RG,North Inner Ring,malleswaram/890626,25,Cloudy,25,Pleasant,77,No Precipitation,Rain will likely form in the area in 41 min,81,Poor
+2HVW+G8|XJXR+WG,North Outer Ring,kammanahalli/3352184,25,Cloudy,25,Pleasant,74,No Precipitation,Rain starting in 55 min,81,Poor
+XPC7+72|XM33+J3,Old Airport Road,thubarahalli/2865004,26,Cloudy,26,Pleasant,73,No Precipitation,Rain starting in 79 min,76,Poor
+WP44+W8|WJFH+XQ,Sarjapur Road,doddakannalli/2865544,26,Cloudy,25,Pleasant,76,No Precipitation,No precipitation for at least 120 min,71,Poor
+XG48+2W|VHWC+C3,South Outer Ring,hosakerehalli/3352261,26,Cloudy,25,Pleasant,72,No Precipitation,Rain starting in 16 min,92,Poor
