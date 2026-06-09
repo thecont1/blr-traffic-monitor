@@ -1,6 +1,6 @@
 # Traffic Monitor Lizard
 
-The data engine behind [TraffiCOracle](https://github.com/thecont1/TraffiCOracle). This project builds a dataset of live hyperlocal traffic and weather readings, and provides a full toolkit for analysing and visualising the results.
+The data engine behind [traffiCOracle](https://github.com/thecont1/traffic-oracle). This project builds a dataset of live hyperlocal traffic and weather readings, and provides a full toolkit for analysing and visualising the results.
 
 It is designed for **civic technologists**, **urban planners**, **data journalists**, and **researchers** who want a transparent, reproducible pipeline for understanding how a city moves, how traffic patterns evolve, what factors influence travel times, and the characteristics of roads and routes.
 
@@ -10,7 +10,7 @@ It is designed for **civic technologists**, **urban planners**, **data journalis
 
 An automated script periodically asks Google Maps to estimate how long it would take to go from Point A to Point B, for each from a set of pre-determined routes, and records the result. Over weeks and months, this builds up a rich dataset. The project also pulls in local weather data so you can later ask whether rain or heat correlate with traffic congestion.
 
-Because everything is stored as plain CSV files in a public GitHub repository, the data is **open** (anyone can download and verify it), **versioned** (every commit is a snapshot in time) and **reusable** (the companion dashboard TraffiCOracle reads these files directly).
+Because everything is stored as plain CSV files in a public GitHub repository, the data is **open** (anyone can download and verify it), **versioned** (every commit is a snapshot in time) and **reusable** (the companion dashboard traffiCOracle reads these files directly).
 
 ---
 
@@ -183,13 +183,13 @@ cron-job.org  ──►  Cloudflare Worker  ──►  GitHub Actions
                                         Commit to GitHub
                                               │
                                               ▼
-                              TraffiCOracle reads the public CSV
+                              traffiCOracle reads the public CSV
 ```
 
 1. **Trigger** — An external scheduler or manual dispatch triggers the GitHub Actions workflow.
 2. **Scraping** — A runner installs `uv`, launches Chrome, and runs `traffic_snapshot.py`.
 3. **Storage** — New rows are appended to the traffic CSV and committed. If the remote has diverged (e.g. concurrent workflow runs), the runner automatically rebases and retries with `--force-with-lease` so no data is lost.
-4. **Consumption** — TraffiCOracle (or your own script) fetches the updated CSV from GitHub's raw-content URL.
+4. **Consumption** — traffiCOracle (or your own script) fetches the updated CSV from GitHub's raw-content URL.
 
 ### Deduplication
 

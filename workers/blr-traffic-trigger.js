@@ -3,8 +3,8 @@
 // Secrets required: CRON_SECRET, GITHUB_TOKEN
 //
 // Two cron jobs configured at cron-job.org:
-// - "TraffiCOracle Dedup" - runs at 3am daily, calls with ?type=dedup
-// - "TraffiCOracle Snapshot" - runs twice/hour, calls with ?type=snapshot
+// - "traffiCOracle Dedup" - runs at 3am daily, calls with ?type=dedup
+// - "traffiCOracle Snapshot" - runs twice/hour, calls with ?type=snapshot
 
 const REPO = 'thecont1/traffic-monitor-lizard';
 const WORKFLOW = 'traffic_snapshot.yml';

@@ -98,8 +98,8 @@ Both are in the same cycle (`00:10` to `01:09`).
 Workflow triggered exclusively by cron-job.org via Cloudflare worker:
 
 Two cron jobs configured at cron-job.org:
-- "TraffiCOracle BLR Dedup" - runs at 3am daily, hits `https://worker.dev?type=dedup`
-- "TraffiCOracle BLR Snapshot" - runs twice/hour, hits `https://worker.dev?type=snapshot`
+- "traffiCOracle BLR Dedup" - runs at 3am daily, hits `https://worker.dev?type=dedup`
+- "traffiCOracle BLR Snapshot" - runs twice/hour, hits `https://worker.dev?type=snapshot`
 
 Worker validates `X-Cron-Secret` header and dispatches the workflow with `inputs.job_type`.
 
