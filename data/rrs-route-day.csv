@@ -2331,18 +2331,18 @@ date,route_code,tod_bucket,mean_speed,trip_count,daily_rank,participating_routes
 2026-06-08,XMW9+G8|WMJR+V4,weekday_morning,15.37,4,10,12,-3.82,East Outer Ring
 2026-06-08,WP44+W8|WJFH+XQ,weekday_morning,15.36,4,11,12,-4.91,Sarjapur Road
 2026-06-08,WHR9+R6|XJGF+6J,weekday_morning,14.86,4,12,12,-6.0,Central Diagonal 2
-2026-06-09,XJG4+7J|5PX4+HQ,weekday_morning,37.38,12,1,12,6.0,Airport Expy
-2026-06-09,VJRQ+2M|RMJJ+F4,weekday_morning,23.42,12,2,12,4.91,Hosur Road
-2026-06-09,WH5F+26|WJ8X+F5W,weekday_morning,20.97,12,3,12,3.82,Double Decker Flyover
-2026-06-09,2HM2+P8|XJV5+RG,weekday_morning,18.79,12,4,12,2.73,North Inner Ring
-2026-06-09,XHJ7+MG|WJM6+VC,weekday_morning,17.44,12,5,12,1.64,Central Diagonal 1
-2026-06-09,WGG8+G5|XH7P+G6,weekday_morning,17.36,12,6,12,0.55,Mysore Road
-2026-06-09,XJPW+92|WJP4+FF,weekday_morning,16.0,12,7,12,-0.55,East Inner Ring
-2026-06-09,XPC7+72|XM33+J3,weekday_morning,15.8,12,8,12,-1.64,Old Airport Road
-2026-06-09,2HVW+G8|XJXR+WG,weekday_morning,14.93,12,9,12,-2.73,North Outer Ring
-2026-06-09,WHR9+R6|XJGF+6J,weekday_morning,14.22,12,10,12,-3.82,Central Diagonal 2
-2026-06-09,XMW9+G8|WMJR+V4,weekday_morning,13.6,12,11,12,-4.91,East Outer Ring
-2026-06-09,WP44+W8|WJFH+XQ,weekday_morning,13.0,12,12,12,-6.0,Sarjapur Road
+2026-06-09,XJG4+7J|5PX4+HQ,weekday_morning,38.77,4,1,12,6.0,Airport Expy
+2026-06-09,VJRQ+2M|RMJJ+F4,weekday_morning,24.17,4,2,12,4.91,Hosur Road
+2026-06-09,WH5F+26|WJ8X+F5W,weekday_morning,20.65,4,3,12,3.82,Double Decker Flyover
+2026-06-09,2HM2+P8|XJV5+RG,weekday_morning,19.15,4,4,12,2.73,North Inner Ring
+2026-06-09,XHJ7+MG|WJM6+VC,weekday_morning,18.06,4,5,12,1.64,Central Diagonal 1
+2026-06-09,WGG8+G5|XH7P+G6,weekday_morning,17.71,4,6,12,0.55,Mysore Road
+2026-06-09,XJPW+92|WJP4+FF,weekday_morning,16.58,4,7,12,-0.55,East Inner Ring
+2026-06-09,XPC7+72|XM33+J3,weekday_morning,15.39,4,8,12,-1.64,Old Airport Road
+2026-06-09,2HVW+G8|XJXR+WG,weekday_morning,14.7,4,9,12,-2.73,North Outer Ring
+2026-06-09,WHR9+R6|XJGF+6J,weekday_morning,14.53,4,10,12,-3.82,Central Diagonal 2
+2026-06-09,XMW9+G8|WMJR+V4,weekday_morning,13.56,4,11,12,-4.91,East Outer Ring
+2026-06-09,WP44+W8|WJFH+XQ,weekday_morning,13.36,4,12,12,-6.0,Sarjapur Road
 2026-06-10,XJG4+7J|5PX4+HQ,weekday_morning,36.34,12,1,12,6.0,Airport Expy
 2026-06-10,VJRQ+2M|RMJJ+F4,weekday_morning,23.87,12,2,12,4.91,Hosur Road
 2026-06-10,WH5F+26|WJ8X+F5W,weekday_morning,20.04,12,3,12,3.82,Double Decker Flyover
@@ -4699,18 +4699,18 @@ date,route_code,tod_bucket,mean_speed,trip_count,daily_rank,participating_routes
 2026-06-08,XPC7+72|XM33+J3,weekday_afternoon,16.9,6,10,12,-3.82,Old Airport Road
 2026-06-08,XJPW+92|WJP4+FF,weekday_afternoon,16.72,6,11,12,-4.91,East Inner Ring
 2026-06-08,WHR9+R6|XJGF+6J,weekday_afternoon,14.9,6,12,12,-6.0,Central Diagonal 2
-2026-06-09,XJG4+7J|5PX4+HQ,weekday_afternoon,34.61,18,1,12,6.0,Airport Expy
-2026-06-09,VJRQ+2M|RMJJ+F4,weekday_afternoon,25.98,18,2,12,4.91,Hosur Road
-2026-06-09,WH5F+26|WJ8X+F5W,weekday_afternoon,23.56,18,3,12,3.82,Double Decker Flyover
-2026-06-09,WGG8+G5|XH7P+G6,weekday_afternoon,20.74,18,4,12,2.73,Mysore Road
-2026-06-09,2HM2+P8|XJV5+RG,weekday_afternoon,19.36,18,5,12,1.64,North Inner Ring
-2026-06-09,WP44+W8|WJFH+XQ,weekday_afternoon,18.18,18,6,12,0.55,Sarjapur Road
-2026-06-09,XHJ7+MG|WJM6+VC,weekday_afternoon,17.04,18,7,12,-0.55,Central Diagonal 1
-2026-06-09,XMW9+G8|WMJR+V4,weekday_afternoon,16.78,18,8,12,-1.64,East Outer Ring
-2026-06-09,2HVW+G8|XJXR+WG,weekday_afternoon,16.47,18,9,12,-2.73,North Outer Ring
-2026-06-09,XPC7+72|XM33+J3,weekday_afternoon,15.91,18,10,12,-3.82,Old Airport Road
-2026-06-09,XJPW+92|WJP4+FF,weekday_afternoon,15.79,18,11,12,-4.91,East Inner Ring
-2026-06-09,WHR9+R6|XJGF+6J,weekday_afternoon,15.02,18,12,12,-6.0,Central Diagonal 2
+2026-06-09,XJG4+7J|5PX4+HQ,weekday_afternoon,35.05,6,1,12,6.0,Airport Expy
+2026-06-09,VJRQ+2M|RMJJ+F4,weekday_afternoon,26.11,6,2,12,4.91,Hosur Road
+2026-06-09,WH5F+26|WJ8X+F5W,weekday_afternoon,23.2,6,3,12,3.82,Double Decker Flyover
+2026-06-09,WGG8+G5|XH7P+G6,weekday_afternoon,20.87,6,4,12,2.73,Mysore Road
+2026-06-09,2HM2+P8|XJV5+RG,weekday_afternoon,19.29,6,5,12,1.64,North Inner Ring
+2026-06-09,WP44+W8|WJFH+XQ,weekday_afternoon,18.51,6,6,12,0.55,Sarjapur Road
+2026-06-09,XMW9+G8|WMJR+V4,weekday_afternoon,17.1,6,7,12,-0.55,East Outer Ring
+2026-06-09,XHJ7+MG|WJM6+VC,weekday_afternoon,17.07,6,8,12,-1.64,Central Diagonal 1
+2026-06-09,2HVW+G8|XJXR+WG,weekday_afternoon,16.79,6,9,12,-2.73,North Outer Ring
+2026-06-09,XJPW+92|WJP4+FF,weekday_afternoon,15.96,6,10,12,-3.82,East Inner Ring
+2026-06-09,XPC7+72|XM33+J3,weekday_afternoon,15.91,6,11,12,-4.91,Old Airport Road
+2026-06-09,WHR9+R6|XJGF+6J,weekday_afternoon,14.85,6,12,12,-6.0,Central Diagonal 2
 2026-06-10,XJG4+7J|5PX4+HQ,weekday_afternoon,33.83,18,1,12,6.0,Airport Expy
 2026-06-10,VJRQ+2M|RMJJ+F4,weekday_afternoon,25.11,18,2,12,4.91,Hosur Road
 2026-06-10,WH5F+26|WJ8X+F5W,weekday_afternoon,23.09,18,3,12,3.82,Double Decker Flyover
@@ -7067,18 +7067,18 @@ date,route_code,tod_bucket,mean_speed,trip_count,daily_rank,participating_routes
 2026-06-08,WHR9+R6|XJGF+6J,weekday_evening,16.57,4,10,12,-3.82,Central Diagonal 2
 2026-06-08,XPC7+72|XM33+J3,weekday_evening,16.2,4,11,12,-4.91,Old Airport Road
 2026-06-08,XJPW+92|WJP4+FF,weekday_evening,15.78,4,12,12,-6.0,East Inner Ring
-2026-06-09,XJG4+7J|5PX4+HQ,weekday_evening,33.41,12,1,12,6.0,Airport Expy
-2026-06-09,VJRQ+2M|RMJJ+F4,weekday_evening,24.66,12,2,12,4.91,Hosur Road
-2026-06-09,XMW9+G8|WMJR+V4,weekday_evening,23.12,12,3,12,3.82,East Outer Ring
-2026-06-09,WH5F+26|WJ8X+F5W,weekday_evening,22.97,12,4,12,2.73,Double Decker Flyover
-2026-06-09,WGG8+G5|XH7P+G6,weekday_evening,20.1,12,5,12,1.64,Mysore Road
-2026-06-09,2HM2+P8|XJV5+RG,weekday_evening,19.84,12,6,12,0.55,North Inner Ring
-2026-06-09,XHJ7+MG|WJM6+VC,weekday_evening,18.8,12,7,12,-0.55,Central Diagonal 1
-2026-06-09,2HVW+G8|XJXR+WG,weekday_evening,18.4,12,8,12,-1.64,North Outer Ring
-2026-06-09,WHR9+R6|XJGF+6J,weekday_evening,17.01,12,9,12,-2.73,Central Diagonal 2
-2026-06-09,XJPW+92|WJP4+FF,weekday_evening,16.29,12,10,12,-3.82,East Inner Ring
-2026-06-09,XPC7+72|XM33+J3,weekday_evening,16.29,12,11,12,-4.91,Old Airport Road
-2026-06-09,WP44+W8|WJFH+XQ,weekday_evening,15.88,12,12,12,-6.0,Sarjapur Road
+2026-06-09,XJG4+7J|5PX4+HQ,weekday_evening,32.42,4,1,12,6.0,Airport Expy
+2026-06-09,VJRQ+2M|RMJJ+F4,weekday_evening,23.52,4,2,12,4.91,Hosur Road
+2026-06-09,XMW9+G8|WMJR+V4,weekday_evening,22.38,4,3,12,3.82,East Outer Ring
+2026-06-09,WH5F+26|WJ8X+F5W,weekday_evening,22.16,4,4,12,2.73,Double Decker Flyover
+2026-06-09,WGG8+G5|XH7P+G6,weekday_evening,20.12,4,5,12,1.64,Mysore Road
+2026-06-09,2HM2+P8|XJV5+RG,weekday_evening,19.85,4,6,12,0.55,North Inner Ring
+2026-06-09,XHJ7+MG|WJM6+VC,weekday_evening,18.27,4,7,12,-0.55,Central Diagonal 1
+2026-06-09,2HVW+G8|XJXR+WG,weekday_evening,17.72,4,8,12,-1.64,North Outer Ring
+2026-06-09,WHR9+R6|XJGF+6J,weekday_evening,16.36,4,9,12,-2.73,Central Diagonal 2
+2026-06-09,XJPW+92|WJP4+FF,weekday_evening,15.52,4,10,12,-3.82,East Inner Ring
+2026-06-09,WP44+W8|WJFH+XQ,weekday_evening,15.44,4,11,12,-4.91,Sarjapur Road
+2026-06-09,XPC7+72|XM33+J3,weekday_evening,15.35,4,12,12,-6.0,Old Airport Road
 2026-06-10,XJG4+7J|5PX4+HQ,weekday_evening,28.53,9,1,12,6.0,Airport Expy
 2026-06-10,VJRQ+2M|RMJJ+F4,weekday_evening,21.91,9,2,12,4.91,Hosur Road
 2026-06-10,WH5F+26|WJ8X+F5W,weekday_evening,21.79,9,3,12,3.82,Double Decker Flyover
@@ -11337,39 +11337,39 @@ date,route_code,tod_bucket,mean_speed,trip_count,daily_rank,participating_routes
 2026-06-08,WP44+W8|WJFH+XQ,late_hours,30.64,7,10,12,-3.82,Sarjapur Road
 2026-06-08,XJPW+92|WJP4+FF,late_hours,29.71,7,11,12,-4.91,East Inner Ring
 2026-06-08,WHR9+R6|XJGF+6J,late_hours,26.86,7,12,12,-6.0,Central Diagonal 2
-2026-06-09,XJG4+7J|5PX4+HQ,late_hours,50.83,15,1,12,6.0,Airport Expy
-2026-06-09,WH5F+26|WJ8X+F5W,late_hours,37.51,15,2,12,4.91,Double Decker Flyover
-2026-06-09,VJRQ+2M|RMJJ+F4,late_hours,37.17,15,3,12,3.82,Hosur Road
-2026-06-09,XPC7+72|XM33+J3,late_hours,32.93,15,4,12,2.73,Old Airport Road
-2026-06-09,XHJ7+MG|WJM6+VC,late_hours,32.91,15,5,12,1.64,Central Diagonal 1
-2026-06-09,WGG8+G5|XH7P+G6,late_hours,32.52,15,6,12,0.55,Mysore Road
-2026-06-09,XMW9+G8|WMJR+V4,late_hours,32.5,15,7,12,-0.55,East Outer Ring
-2026-06-09,WP44+W8|WJFH+XQ,late_hours,31.34,15,8,12,-1.64,Sarjapur Road
-2026-06-09,2HM2+P8|XJV5+RG,late_hours,31.22,15,9,12,-2.73,North Inner Ring
-2026-06-09,XJPW+92|WJP4+FF,late_hours,30.34,15,10,12,-3.82,East Inner Ring
-2026-06-09,2HVW+G8|XJXR+WG,late_hours,29.85,15,11,12,-4.91,North Outer Ring
-2026-06-09,WHR9+R6|XJGF+6J,late_hours,27.06,15,12,12,-6.0,Central Diagonal 2
-2026-06-10,XJG4+7J|5PX4+HQ,late_hours,51.43,21,1,12,6.0,Airport Expy
-2026-06-10,VJRQ+2M|RMJJ+F4,late_hours,38.24,21,2,12,4.91,Hosur Road
-2026-06-10,WH5F+26|WJ8X+F5W,late_hours,38.17,21,3,12,3.82,Double Decker Flyover
-2026-06-10,XMW9+G8|WMJR+V4,late_hours,35.42,21,4,12,2.73,East Outer Ring
-2026-06-10,XPC7+72|XM33+J3,late_hours,34.09,21,5,12,1.64,Old Airport Road
-2026-06-10,XHJ7+MG|WJM6+VC,late_hours,32.94,21,6,12,0.55,Central Diagonal 1
-2026-06-10,WGG8+G5|XH7P+G6,late_hours,32.62,21,7,12,-0.55,Mysore Road
-2026-06-10,2HM2+P8|XJV5+RG,late_hours,31.66,21,8,12,-1.64,North Inner Ring
-2026-06-10,WP44+W8|WJFH+XQ,late_hours,30.58,21,9,12,-2.73,Sarjapur Road
-2026-06-10,XJPW+92|WJP4+FF,late_hours,30.54,21,10,12,-3.82,East Inner Ring
-2026-06-10,2HVW+G8|XJXR+WG,late_hours,28.95,21,11,12,-4.91,North Outer Ring
-2026-06-10,WHR9+R6|XJGF+6J,late_hours,27.13,21,12,12,-6.0,Central Diagonal 2
-2026-06-11,XJG4+7J|5PX4+HQ,late_hours,49.01,3,1,12,6.0,Airport Expy
-2026-06-11,WH5F+26|WJ8X+F5W,late_hours,37.88,3,2,12,4.91,Double Decker Flyover
-2026-06-11,VJRQ+2M|RMJJ+F4,late_hours,37.87,3,3,12,3.82,Hosur Road
-2026-06-11,XMW9+G8|WMJR+V4,late_hours,35.29,3,4,12,2.73,East Outer Ring
-2026-06-11,XHJ7+MG|WJM6+VC,late_hours,33.85,3,5,12,1.64,Central Diagonal 1
-2026-06-11,WGG8+G5|XH7P+G6,late_hours,32.42,3,6,12,0.55,Mysore Road
-2026-06-11,XPC7+72|XM33+J3,late_hours,31.95,3,7,12,-0.55,Old Airport Road
-2026-06-11,2HM2+P8|XJV5+RG,late_hours,31.3,3,8,12,-1.64,North Inner Ring
-2026-06-11,WP44+W8|WJFH+XQ,late_hours,29.78,3,9,12,-2.73,Sarjapur Road
-2026-06-11,XJPW+92|WJP4+FF,late_hours,28.03,3,10,12,-3.82,East Inner Ring
-2026-06-11,2HVW+G8|XJXR+WG,late_hours,27.58,3,11,12,-4.91,North Outer Ring
-2026-06-11,WHR9+R6|XJGF+6J,late_hours,26.24,3,12,12,-6.0,Central Diagonal 2
+2026-06-09,XJG4+7J|5PX4+HQ,late_hours,51.35,7,1,12,6.0,Airport Expy
+2026-06-09,VJRQ+2M|RMJJ+F4,late_hours,37.43,7,2,12,4.91,Hosur Road
+2026-06-09,WH5F+26|WJ8X+F5W,late_hours,37.43,7,3,12,3.82,Double Decker Flyover
+2026-06-09,XMW9+G8|WMJR+V4,late_hours,33.73,7,4,12,2.73,East Outer Ring
+2026-06-09,XHJ7+MG|WJM6+VC,late_hours,33.09,7,5,12,1.64,Central Diagonal 1
+2026-06-09,XPC7+72|XM33+J3,late_hours,32.52,7,6,12,0.55,Old Airport Road
+2026-06-09,WGG8+G5|XH7P+G6,late_hours,32.34,7,7,12,-0.55,Mysore Road
+2026-06-09,2HM2+P8|XJV5+RG,late_hours,31.11,7,8,12,-1.64,North Inner Ring
+2026-06-09,WP44+W8|WJFH+XQ,late_hours,30.97,7,9,12,-2.73,Sarjapur Road
+2026-06-09,XJPW+92|WJP4+FF,late_hours,30.11,7,10,12,-3.82,East Inner Ring
+2026-06-09,2HVW+G8|XJXR+WG,late_hours,29.98,7,11,12,-4.91,North Outer Ring
+2026-06-09,WHR9+R6|XJGF+6J,late_hours,27.05,7,12,12,-6.0,Central Diagonal 2
+2026-06-10,XJG4+7J|5PX4+HQ,late_hours,50.51,15,1,12,6.0,Airport Expy
+2026-06-10,VJRQ+2M|RMJJ+F4,late_hours,37.39,15,2,12,4.91,Hosur Road
+2026-06-10,WH5F+26|WJ8X+F5W,late_hours,37.28,15,3,12,3.82,Double Decker Flyover
+2026-06-10,XMW9+G8|WMJR+V4,late_hours,34.07,15,4,12,2.73,East Outer Ring
+2026-06-10,XPC7+72|XM33+J3,late_hours,33.14,15,5,12,1.64,Old Airport Road
+2026-06-10,XHJ7+MG|WJM6+VC,late_hours,32.0,15,6,12,0.55,Central Diagonal 1
+2026-06-10,WGG8+G5|XH7P+G6,late_hours,31.96,15,7,12,-0.55,Mysore Road
+2026-06-10,2HM2+P8|XJV5+RG,late_hours,31.26,15,8,12,-1.64,North Inner Ring
+2026-06-10,WP44+W8|WJFH+XQ,late_hours,30.56,15,9,12,-2.73,Sarjapur Road
+2026-06-10,XJPW+92|WJP4+FF,late_hours,29.67,15,10,12,-3.82,East Inner Ring
+2026-06-10,2HVW+G8|XJXR+WG,late_hours,28.59,15,11,12,-4.91,North Outer Ring
+2026-06-10,WHR9+R6|XJGF+6J,late_hours,26.67,15,12,12,-6.0,Central Diagonal 2
+2026-06-11,XJG4+7J|5PX4+HQ,late_hours,53.57,13,1,12,6.0,Airport Expy
+2026-06-11,VJRQ+2M|RMJJ+F4,late_hours,39.84,13,2,12,4.91,Hosur Road
+2026-06-11,WH5F+26|WJ8X+F5W,late_hours,39.62,13,3,12,3.82,Double Decker Flyover
+2026-06-11,XMW9+G8|WMJR+V4,late_hours,37.57,13,4,12,2.73,East Outer Ring
+2026-06-11,XPC7+72|XM33+J3,late_hours,36.55,13,5,12,1.64,Old Airport Road
+2026-06-11,XHJ7+MG|WJM6+VC,late_hours,35.63,13,6,12,0.55,Central Diagonal 1
+2026-06-11,WGG8+G5|XH7P+G6,late_hours,34.56,13,7,12,-0.55,Mysore Road
+2026-06-11,2HM2+P8|XJV5+RG,late_hours,33.56,13,8,12,-1.64,North Inner Ring
+2026-06-11,XJPW+92|WJP4+FF,late_hours,32.39,13,9,12,-2.73,East Inner Ring
+2026-06-11,WP44+W8|WJFH+XQ,late_hours,32.17,13,10,12,-3.82,Sarjapur Road
+2026-06-11,2HVW+G8|XJXR+WG,late_hours,30.31,13,11,12,-4.91,North Outer Ring
+2026-06-11,WHR9+R6|XJGF+6J,late_hours,29.03,13,12,12,-6.0,Central Diagonal 2

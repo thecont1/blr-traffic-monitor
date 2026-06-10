@@ -310,6 +310,27 @@ class TestRollingScores:
         assert fast_row["rrs_rank"] < slow_row["rrs_rank"]  # lower rank number = better
         assert fast_row["rrs_rolling_score"] > slow_row["rrs_rolling_score"]
 
+    def test_ties_broken_by_mean_speed(self):
+        """When two routes have the same rolling score, higher mean speed wins."""
+        dates = [f"2026-01-{i:02d}" for i in [5, 6, 7, 8, 9, 12, 13, 14, 15, 16]]
+        # Same daily points (→ same rolling score) but different mean speeds
+        daily_points = pd.DataFrame({
+            "date": dates * 2,
+            "route_code": ["fast_tie"] * 10 + ["slow_tie"] * 10,
+            "tod_bucket": ["weekday_evening"] * 20,
+            "mean_speed": [40.0] * 10 + [20.0] * 10,  # different speeds
+            "trip_count": [1] * 20,
+            "rrs_daily_points": [1.0] * 10 + [1.0] * 10,  # same points → same score
+        })
+        result = compute_rrs_rolling_scores(daily_points, window_days=14, end_date="2026-01-16")
+        fast = result[result["route_code"] == "fast_tie"].iloc[0]
+        slow = result[result["route_code"] == "slow_tie"].iloc[0]
+        # Same rolling score but different ranks
+        assert fast["rrs_rolling_score"] == slow["rrs_rolling_score"]
+        assert fast["rrs_rank"] < slow["rrs_rank"]
+        # All ranks must be unique
+        assert result["rrs_rank"].nunique() == len(result)
+
 
 # ============================================================================
 # Test: assign_sigma_band

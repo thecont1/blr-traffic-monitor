@@ -332,7 +332,12 @@ def compute_rrs_rolling_scores(
     out = pd.DataFrame(results)
 
     # Rank routes by rolling score (descending)
-    out["rrs_rank"] = out["rrs_rolling_score"].rank(ascending=False, method="min").astype(int)
+    # Rank: break ties by mean_speed_window, then completeness
+    out = out.sort_values(
+        ["rrs_rolling_score", "mean_speed_window", "completeness_ratio"],
+        ascending=[False, False, False],
+    ).reset_index(drop=True)
+    out["rrs_rank"] = range(1, len(out) + 1)
     out["routes_in_window"] = len(out)
 
     # Sort by rank
