@@ -2,13 +2,13 @@ route_code,route_name_short,accuweather_station,temp,temp_flag,realfeel,realfeel
 XJG4+7J|5PX4+HQ,Airport Expy,shantala-nagar/3352203,25,A shower,23,Pleasant,80,No Precipitation,No precipitation for at least 120 min,75,Poor
 XHJ7+MG|WJM6+VC,Central Diagonal 1,subhash-nagar/3352215,25,Mostly cloudy,25,Pleasant,80,No Precipitation,No precipitation for at least 120 min,62,Poor
 WHR9+R6|XJGF+6J,Central Diagonal 2,basavanagudi/3352257,25,Mostly cloudy,25,Pleasant,74,No Precipitation,No precipitation for at least 120 min,74,Poor
-WH5F+26|WJ8X+F5W,Double Decker Flyover,pattabhiram-nagar/3352276,24,A shower,23,Pleasant,82,No Precipitation,No precipitation for at least 120 min,88,Poor
+WH5F+26|WJ8X+F5W,Double Decker Flyover,pattabhiram-nagar/3352276,24,A shower,23,Pleasant,82,No Precipitation,No precipitation for at least 120 min,69,Poor
 XJPW+92|WJP4+FF,East Inner Ring,hoysala-nagar/3352194,24,A shower,22,Pleasant,85,No Precipitation,No precipitation for at least 120 min,77,Poor
-XMW9+G8|WMJR+V4,East Outer Ring,mahadevapura/2864201,25,A shower,24,Pleasant,77,No Precipitation,No precipitation for at least 120 min,98,Poor
+XMW9+G8|WMJR+V4,East Outer Ring,mahadevapura/2864201,25,A shower,24,Pleasant,77,,,82,Poor
 VJRQ+2M|RMJJ+F4,Hosur Road,konappana-agrahara/2866292,24,A shower,23,Pleasant,82,No Precipitation,No precipitation for at least 120 min,77,Poor
-WGG8+G5|XH7P+G6,Mysore Road,deepanjali-nagar/3352240,25,Mostly cloudy,26,Pleasant,80,No Precipitation,No precipitation for at least 120 min,75,Poor
-2HM2+P8|XJV5+RG,North Inner Ring,malleswaram/890626,25,Mostly cloudy,25,Pleasant,80,No Precipitation,No precipitation for at least 120 min,67,Poor
+WGG8+G5|XH7P+G6,Mysore Road,deepanjali-nagar/3352240,25,Mostly cloudy,26,Pleasant,80,,,75,Poor
+2HM2+P8|XJV5+RG,North Inner Ring,malleswaram/890626,25,Mostly cloudy,25,Pleasant,80,,,67,Poor
 2HVW+G8|XJXR+WG,North Outer Ring,kammanahalli/3352184,25,A shower,24,Pleasant,80,No Precipitation,No precipitation for at least 120 min,76,Poor
-XPC7+72|XM33+J3,Old Airport Road,thubarahalli/2865004,,,,,,,,98,Poor
-WP44+W8|WJFH+XQ,Sarjapur Road,doddakannalli/2865544,24,A shower,23,Pleasant,82,No Precipitation,No precipitation for at least 120 min,100,Unhealthy
-XG48+2W|VHWC+C3,South Outer Ring,hosakerehalli/3352261,25,Mostly cloudy,25,Pleasant,74,No Precipitation,No precipitation for at least 120 min,,
+XPC7+72|XM33+J3,Old Airport Road,thubarahalli/2865004,25,A shower,24,Pleasant,77,No Precipitation,No precipitation for at least 120 min,82,Poor
+WP44+W8|WJFH+XQ,Sarjapur Road,doddakannalli/2865544,24,A shower,23,Pleasant,82,No Precipitation,No precipitation for at least 120 min,82,Poor
+XG48+2W|VHWC+C3,South Outer Ring,hosakerehalli/3352261,25,Mostly cloudy,25,Pleasant,74,No Precipitation,No precipitation for at least 120 min,74,Poor
