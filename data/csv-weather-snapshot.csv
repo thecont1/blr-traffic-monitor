@@ -1,14 +1,14 @@
 route_code,route_name_short,accuweather_station,temp,temp_flag,realfeel,realfeel_flag,humidity,rsi_flag,rsi_forecast,aqi,aqi_flag
-XJG4+7J|5PX4+HQ,Airport Expy,shantala-nagar/3352203,23,Mostly cloudy,23,Pleasant,81,Light Rain,Rain ending in 4 min,98,Poor
-XHJ7+MG|WJM6+VC,Central Diagonal 1,subhash-nagar/3352215,23,Mostly cloudy,23,Pleasant,81,Light Rain,Rain ending in 11 min,94,Poor
-WHR9+R6|XJGF+6J,Central Diagonal 2,basavanagudi/3352257,23,Mostly cloudy,23,Pleasant,82,Light Rain,Rain ending in 38 min,95,Poor
-WH5F+26|WJ8X+F5W,Double Decker Flyover,pattabhiram-nagar/3352276,23,Mostly cloudy,23,Pleasant,82,Light Rain,Rain for at least 120 min,102,Unhealthy
-XJPW+92|WJP4+FF,East Inner Ring,hoysala-nagar/3352194,,,,,,No Precipitation,Rain will likely form in the area over the next 2 min,99,Poor
-XMW9+G8|WMJR+V4,East Outer Ring,mahadevapura/2864201,23,Mostly cloudy,23,Pleasant,82,No Precipitation,No precipitation for at least 120 min,97,Poor
-VJRQ+2M|RMJJ+F4,Hosur Road,konappana-agrahara/2866292,22,Cloudy,22,Pleasant,85,Light Rain,Rain for at least 120 min,102,Unhealthy
-WGG8+G5|XH7P+G6,Mysore Road,deepanjali-nagar/3352240,23,Mostly cloudy,23,Pleasant,83,Light Rain,Rain for at least 120 min,93,Poor
-2HM2+P8|XJV5+RG,North Inner Ring,malleswaram/890626,23,Mostly cloudy,23,Pleasant,82,Light Rain,Rain ending in 13 min,92,Poor
-2HVW+G8|XJXR+WG,North Outer Ring,kammanahalli/3352184,23,Mostly cloudy,23,Pleasant,81,No Precipitation,No precipitation for at least 120 min,,
-XPC7+72|XM33+J3,Old Airport Road,thubarahalli/2865004,23,Mostly cloudy,23,Pleasant,82,Light Rain,Rain ending in 8 min,97,Poor
-WP44+W8|WJFH+XQ,Sarjapur Road,doddakannalli/2865544,23,Cloudy,23,Pleasant,82,Light Rain,Rain for at least 120 min,101,Unhealthy
-XG48+2W|VHWC+C3,South Outer Ring,hosakerehalli/3352261,23,Mostly cloudy,23,Pleasant,82,Light Rain,Rain will continue for 97 min,95,Poor
+XJG4+7J|5PX4+HQ,Airport Expy,shantala-nagar/3352203,,,,,,Light Rain,A break in the rain in 39 min,98,Poor
+XHJ7+MG|WJM6+VC,Central Diagonal 1,subhash-nagar/3352215,23,Mostly cloudy,23,Pleasant,84,Light Rain,Rain ending in 34 min,94,Poor
+WHR9+R6|XJGF+6J,Central Diagonal 2,basavanagudi/3352257,22,Mostly cloudy,22,Pleasant,85,Light Rain,Rain will continue for 79 min,95,Poor
+WH5F+26|WJ8X+F5W,Double Decker Flyover,pattabhiram-nagar/3352276,23,Mostly cloudy,22,Pleasant,85,Light Rain,Rain will continue for 87 min,102,Unhealthy
+XJPW+92|WJP4+FF,East Inner Ring,hoysala-nagar/3352194,23,Mostly cloudy,23,Pleasant,83,Light Rain,A break in the rain in 9 min,99,Poor
+XMW9+G8|WMJR+V4,East Outer Ring,mahadevapura/2864201,23,Mostly cloudy,23,Pleasant,84,Light Rain,Rain will continue for 48 min,97,Poor
+VJRQ+2M|RMJJ+F4,Hosur Road,konappana-agrahara/2866292,22,Cloudy,22,Pleasant,87,Light Rain,Rain ending in 31 min,102,Unhealthy
+WGG8+G5|XH7P+G6,Mysore Road,deepanjali-nagar/3352240,23,Mostly cloudy,23,Pleasant,85,Light Rain,Rain ending in 22 min,93,Poor
+2HM2+P8|XJV5+RG,North Inner Ring,malleswaram/890626,23,Mostly cloudy,23,Pleasant,84,Light Rain,Rain ending in 35 min,92,Poor
+2HVW+G8|XJXR+WG,North Outer Ring,kammanahalli/3352184,23,Mostly cloudy,23,Pleasant,82,Light Rain,A break in the rain in 3 min,90,Poor
+XPC7+72|XM33+J3,Old Airport Road,thubarahalli/2865004,,,,,,Light Rain,Rain ending in 40 min,97,Poor
+WP44+W8|WJFH+XQ,Sarjapur Road,doddakannalli/2865544,23,Cloudy,22,Pleasant,85,Light Rain,A break in the rain in 48 min,101,Unhealthy
+XG48+2W|VHWC+C3,South Outer Ring,hosakerehalli/3352261,,,,,,,,95,Poor
