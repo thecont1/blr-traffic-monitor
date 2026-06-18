@@ -1,14 +1,14 @@
 route_code,route_name_short,accuweather_station,temp,temp_flag,realfeel,realfeel_flag,humidity,rsi_flag,rsi_forecast,aqi,aqi_flag
-XJG4+7J|5PX4+HQ,Airport Expy,shantala-nagar/3352203,29,Cloudy,28,Very Warm,51,,,68,Poor
+XJG4+7J|5PX4+HQ,Airport Expy,shantala-nagar/3352203,29,Cloudy,28,Very Warm,51,No Precipitation,No precipitation for at least 120 min,62,Poor
 XHJ7+MG|WJM6+VC,Central Diagonal 1,subhash-nagar/3352215,29,Thunderstorm,26,Pleasant,54,No Precipitation,No precipitation for at least 120 min,69,Poor
 WHR9+R6|XJGF+6J,Central Diagonal 2,basavanagudi/3352257,29,Cloudy,28,Very Warm,51,No Precipitation,No precipitation for at least 120 min,57,Poor
-WH5F+26|WJ8X+F5W,Double Decker Flyover,pattabhiram-nagar/3352276,29,Cloudy,28,Very Warm,51,No Precipitation,No precipitation for at least 120 min,58,Poor
+WH5F+26|WJ8X+F5W,Double Decker Flyover,pattabhiram-nagar/3352276,,,,,,No Precipitation,No precipitation for at least 120 min,58,Poor
 XJPW+92|WJP4+FF,East Inner Ring,hoysala-nagar/3352194,29,Cloudy,28,Very Warm,54,No Precipitation,No precipitation for at least 120 min,60,Poor
-XMW9+G8|WMJR+V4,East Outer Ring,mahadevapura/2864201,28,Cloudy,28,Very Warm,59,,,63,Poor
+XMW9+G8|WMJR+V4,East Outer Ring,mahadevapura/2864201,28,Cloudy,28,Very Warm,59,No Precipitation,No precipitation for at least 120 min,63,Poor
 VJRQ+2M|RMJJ+F4,Hosur Road,konappana-agrahara/2866292,28,Cloudy,28,Very Warm,54,No Precipitation,No precipitation for at least 120 min,60,Poor
 WGG8+G5|XH7P+G6,Mysore Road,deepanjali-nagar/3352240,28,Cloudy,28,Very Warm,63,No Precipitation,No precipitation for at least 120 min,57,Poor
 2HM2+P8|XJV5+RG,North Inner Ring,malleswaram/890626,28,Thunderstorm,26,Pleasant,56,No Precipitation,No precipitation for at least 120 min,61,Poor
-2HVW+G8|XJXR+WG,North Outer Ring,kammanahalli/3352184,29,Thunderstorm,26,Pleasant,54,No Precipitation,No precipitation for at least 120 min,60,Poor
+2HVW+G8|XJXR+WG,North Outer Ring,kammanahalli/3352184,29,Thunderstorm,26,Pleasant,54,,,60,Poor
 XPC7+72|XM33+J3,Old Airport Road,thubarahalli/2865004,28,Cloudy,28,Very Warm,59,No Precipitation,No precipitation for at least 120 min,63,Poor
-WP44+W8|WJFH+XQ,Sarjapur Road,doddakannalli/2865544,28,Thunderstorm,26,Pleasant,59,No Precipitation,No precipitation for at least 120 min,58,Poor
-XG48+2W|VHWC+C3,South Outer Ring,hosakerehalli/3352261,29,Cloudy,28,Very Warm,51,No Precipitation,No precipitation for at least 120 min,,
+WP44+W8|WJFH+XQ,Sarjapur Road,doddakannalli/2865544,28,Thunderstorm,26,Pleasant,59,,,58,Poor
+XG48+2W|VHWC+C3,South Outer Ring,hosakerehalli/3352261,29,Cloudy,28,Very Warm,51,No Precipitation,No precipitation for at least 120 min,57,Poor
