@@ -35,7 +35,7 @@ jobs:
         id: dedup
         if: ${{ inputs.job_type == 'dedup' }}
         run: |
-          dedup_output="$(uv run tools/fix_timestamps.py --apply)"
+          dedup_output="$(uv run --group scraping tools/fix_timestamps.py --apply)"
           echo "$dedup_output"
           removed="$(printf '%s\n' "$dedup_output" | awk -F: '/Old duplicates removed/ {gsub(/[ ,]/, "", $2); print $2; exit}')"
           if [ -z "$removed" ]; then
@@ -49,7 +49,7 @@ jobs:
             inputs.job_type == 'snapshot'
             || inputs.job_type == ''
           }}
-        run: uv run tools/weather.py --json
+        run: uv run --group scraping tools/weather.py --json
 
       - name: Run traffic snapshot and append to CSV
         id: snapshot
@@ -61,7 +61,7 @@ jobs:
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
-          uv run tools/traffic_snapshot.py > /tmp/snapshot_output.txt
+          uv run --group scraping tools/traffic_snapshot.py > /tmp/snapshot_output.txt
           head -n -1 /tmp/snapshot_output.txt >> data/csv-traffic-bangalore.csv
           message="$(tail -n 1 /tmp/snapshot_output.txt)"
           echo "$message"
