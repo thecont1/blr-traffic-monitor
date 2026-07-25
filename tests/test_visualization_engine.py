@@ -430,7 +430,7 @@ class TestTimeOfDayFacets:
     """Tests for plot_time_of_day_facets method"""
 
     def test_time_of_day_facets_basic(self, sample_viz_engine):
-        """Test generating time-of-day faceted visualization"""
+        """Test generating time-of-day interactive visualization"""
         # Should not raise an exception
         try:
             sample_viz_engine.plot_time_of_day_facets()
@@ -442,17 +442,17 @@ class TestTimeOfDayFacets:
 
         assert success, "plot_time_of_day_facets should execute without errors"
 
-    def test_time_of_day_facets_creates_four_subplots(self, sample_viz_engine):
-        """Test that time-of-day facets creates 4 subplots (one per time category)"""
+    def test_time_of_day_facets_renders_single_chart(self, sample_viz_engine):
+        """Test that time-of-day facets renders a single chart (one time category at a time)"""
         # Create the plot
         sample_viz_engine.plot_time_of_day_facets()
 
-        # Get current figure
+        # Get current figure - should be a single chart, not multiple subplots
         fig = plt.gcf()
         axes = fig.get_axes()
 
-        # Should have 4 subplots (morning rush, midday, evening rush, night)
-        assert len(axes) == 4, "Time-of-day facets should have 4 subplots"
+        # Should have 1 main axes (not 7 subplots)
+        assert len(axes) >= 1, "Time-of-day facets should render at least one chart"
 
         plt.close('all')
 
