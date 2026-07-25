@@ -3191,6 +3191,129 @@ class VisualizationEngine:
         
         return selector
 
+    def create_route_checkbox_grid(self) -> dict:
+        """
+        Create an interactive route selection checkbox grid with select/deselect all toggle.
+
+        Returns a dict containing:
+        - ``output``: ipywidgets.Output for rendering plots
+        - ``controls``: HBox containing the toggle button
+        - ``grid``: GridBox of route checkboxes
+        - ``get_selected``: callable returning list of selected route codes
+        - ``render``: callable taking a plot_fn(selected_routes) -> None that renders into the output
+
+        The ``render`` method wires up all checkbox/toggle event handlers automatically.
+        The caller only needs to provide ``plot_fn`` and display the widgets.
+
+        Examples
+        --------
+        >>> selector = viz.create_route_checkbox_grid()
+        >>> def plot_fn(routes):
+        ...     if routes:
+        ...         viz.plot_hour_of_day_profiles(routes)
+        >>> selector['render'](plot_fn)
+        >>> display(selector['output'], selector['controls'], selector['grid'])
+        """
+        import ipywidgets as widgets
+        from IPython.display import display, clear_output
+
+        route_checkboxes = []
+        route_items = []
+        for route_code in self.routes:
+            color = self._get_route_color(route_code)
+            cb = widgets.Checkbox(
+                value=True,
+                description=self._get_route_label(route_code),
+                indent=False,
+                layout=widgets.Layout(width='auto')
+            )
+            route_checkboxes.append(cb)
+            swatch = widgets.HTML(
+                value=f'<div style="width:14px;height:14px;background-color:{color};'
+                      f'border:1px solid #555;border-radius:2px;display:inline-block;"></div>',
+                layout=widgets.Layout(margin='2px 4px 0 0')
+            )
+            route_items.append(
+                widgets.HBox([swatch, cb], layout=widgets.Layout(width='auto'))
+            )
+
+        select_toggle = widgets.Button(
+            description='Deselect all',
+            tooltip='Select all or deselect all routes',
+            button_style=''
+        )
+
+        checkbox_grid = widgets.GridBox(
+            children=route_items,
+            layout=widgets.Layout(
+                grid_template_columns='repeat(5, minmax(180px, 1fr))',
+                grid_gap='8px 16px',
+                width='100%'
+            )
+        )
+
+        controls = widgets.HBox([select_toggle])
+        out = widgets.Output()
+        _updating = [False]
+
+        def get_selected():
+            return [rc for rc, cb in zip(self.routes, route_checkboxes) if cb.value]
+
+        def refresh_toggle_label():
+            count = sum(cb.value for cb in route_checkboxes)
+            if count == len(route_checkboxes):
+                select_toggle.description = 'Deselect all'
+            elif count == 0:
+                select_toggle.description = 'Select all'
+            else:
+                select_toggle.description = 'Select all'
+
+        def make_render(plot_fn):
+            def render():
+                selected = get_selected()
+                with out:
+                    clear_output(wait=True)
+                    plot_fn(selected)
+                refresh_toggle_label()
+            return render
+
+        def on_checkbox_change(change, render_fn):
+            if _updating[0]:
+                return
+            if change['type'] == 'change' and change['name'] == 'value':
+                render_fn()
+
+        def on_toggle_click(_, render_fn):
+            if _updating[0]:
+                return
+            target = sum(cb.value for cb in route_checkboxes) != len(route_checkboxes)
+            _updating[0] = True
+            try:
+                for cb in route_checkboxes:
+                    cb.unobserve_all()
+                    cb.value = target
+                render_fn()
+            finally:
+                _updating[0] = False
+            # Re-attach observers after bulk update
+            for cb in route_checkboxes:
+                cb.observe(lambda ch, rf=render_fn: on_checkbox_change(ch, rf), names='value')
+
+        def render(plot_fn):
+            render_fn = make_render(plot_fn)
+            for cb in route_checkboxes:
+                cb.observe(lambda ch, rf=render_fn: on_checkbox_change(ch, rf), names='value')
+            select_toggle.on_click(lambda _, rf=render_fn: on_toggle_click(_, rf))
+            render_fn()
+
+        return {
+            'output': out,
+            'controls': controls,
+            'grid': checkbox_grid,
+            'get_selected': get_selected,
+            'render': render,
+        }
+
     def create_time_range_slider(self, start_date: Optional[str] = None, 
                                  end_date: Optional[str] = None) -> 'ipywidgets.SelectionRangeSlider':
         """
