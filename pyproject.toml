@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.115.0",
+    "ipywidgets>=8.1.8",
     "matplotlib>=3.11.1",
     "numpy>=2.3.2",
     "pandas>=2.3.1",
@@ -13,6 +14,7 @@ dependencies = [
     "python-dotenv>=1.1.1",
     "scikit-learn>=1.8.0",
     "scipy>=1.15.0",
+    "seaborn>=0.13.2",
     "statsmodels>=0.14.6",
     "uvicorn[standard]>=0.34.0",
 ]
