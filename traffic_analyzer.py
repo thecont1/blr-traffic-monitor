@@ -1033,7 +1033,9 @@ class TrafficAnalyzer:
             
             # Shapiro-Wilk test
             if len(route_speeds) >= 3:
-                shapiro_stat, shapiro_p = stats.shapiro(route_speeds)
+                with warnings.catch_warnings():
+                    warnings.simplefilter("ignore", UserWarning)
+                    shapiro_stat, shapiro_p = stats.shapiro(route_speeds)
             else:
                 shapiro_stat, shapiro_p = np.nan, np.nan
             
