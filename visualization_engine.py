@@ -1415,142 +1415,140 @@ class VisualizationEngine:
 
     def plot_time_of_day_facets(self) -> None:
         """
-        Generate faceted visualization showing speed distributions by time-of-day category.
+        Generate interactive single-view visualization of speed distributions by time-of-day.
 
-        This visualization creates a small-multiple layout with 4 subplots, one for each
-        time-of-day category (morning rush, midday, evening rush, night). Each subplot
-        shows violin plots of speed distributions for all routes during that time period.
+        Displays one time-of-day category at a time with Previous/Next buttons to navigate.
+        Each chart is rendered at 300 DPI for high clarity.
 
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        None
-            Displays the plot using matplotlib
-
-        Notes
-        -----
-        Time categories are defined as:
-        - Morning rush: 6-10 AM
-        - Midday: 10 AM - 4 PM
-        - Evening rush: 4-8 PM
-        - Night: 8 PM - 6 AM (includes evening 8 PM - 12 AM)
-
-        Each route is colored according to the color palette from routes_df.
-        Violin plots show the full distribution of speeds, revealing both central
-        tendency and variability for each route during each time period.
+        Time categories (matching data_utils.compute_temporal_features):
+        - Late Night: 12-6 AM
+        - Morning: 6-8 AM
+        - Morning Rush: 8-11 AM
+        - Early Afternoon: 11 AM - 2 PM
+        - Late Afternoon: 2-6 PM
+        - Evening Rush: 6-9 PM
+        - Night: 9 PM - 12 AM
 
         Examples
         --------
         >>> viz = VisualizationEngine(df, routes_df)
         >>> viz.plot_time_of_day_facets()
         """
-        # Ensure temporal features are present
+        from IPython.display import display, clear_output
+        import ipywidgets as widgets
+
         df_with_features = self._ensure_temporal_features(self.df)
 
-        # Define the 4 main time categories to display
-        time_categories = ['morning_rush', 'midday', 'evening_rush', 'night']
+        time_categories = [
+            'late_night', 'morning', 'morning_rush',
+            'early_afternoon', 'late_afternoon',
+            'evening_rush', 'night',
+        ]
         time_labels = {
-            'morning_rush': 'Morning Rush\n(6-10 AM)',
-            'midday': 'Midday\n(10 AM - 4 PM)',
-            'evening_rush': 'Evening Rush\n(4-8 PM)',
-            'night': 'Night\n(8 PM - 6 AM)'
+            'late_night': 'Late Night (12-6 AM)',
+            'morning': 'Morning (6-8 AM)',
+            'morning_rush': 'Morning Rush (8-11 AM)',
+            'early_afternoon': 'Early Afternoon (11 AM - 2 PM)',
+            'late_afternoon': 'Late Afternoon (2-6 PM)',
+            'evening_rush': 'Evening Rush (6-9 PM)',
+            'night': 'Night (9 PM - 12 AM)',
         }
 
-        # Create figure with 2x2 grid
-        fig, axes = plt.subplots(2, 2, figsize=(16, 12))
-        axes = axes.flatten()
-
-        # Get all routes
         routes = sorted(df_with_features['route_code'].unique())
 
-        # Plot each time category
-        for idx, time_cat in enumerate(time_categories):
-            ax = axes[idx]
+        def render_chart(idx: int):
+            time_cat = time_categories[idx]
+            time_data = df_with_features[
+                df_with_features['time_category'] == time_cat
+            ]
 
-            # Filter data for this time category
-            # Note: 'evening' category (8-12 PM) should be included in 'night'
-            if time_cat == 'night':
-                time_data = df_with_features[
-                    df_with_features['time_category'].isin(['night', 'evening'])
-                ]
-            else:
-                time_data = df_with_features[
-                    df_with_features['time_category'] == time_cat
-                ]
+            fig, ax = plt.subplots(figsize=(14, 8), dpi=300)
 
             if time_data.empty:
                 ax.text(0.5, 0.5, f'No data for {time_labels[time_cat]}',
-                       ha='center', va='center', fontsize=12, color='gray')
-                ax.set_title(time_labels[time_cat], fontsize=12, fontweight='bold')
-                continue
+                        ha='center', va='center', fontsize=14, color='gray')
+                ax.set_title(time_labels[time_cat], fontsize=14, fontweight='bold', pad=15)
+                ax.set_xticks([])
+                ax.set_yticks([])
+            else:
+                data_by_route = []
+                colors = []
+                labels = []
 
-            # Prepare data for violin plot
-            data_by_route = []
-            colors = []
-            labels = []
+                for route_code in routes:
+                    route_data = time_data[time_data['route_code'] == route_code]
+                    if not route_data.empty:
+                        data_by_route.append(route_data['avg_speed'].values)
+                        colors.append(self._get_route_color(route_code))
+                        labels.append(self._get_route_label(route_code, label_type='short'))
 
-            for route_code in routes:
-                route_data = time_data[time_data['route_code'] == route_code]
-                if not route_data.empty:
-                    data_by_route.append(route_data['avg_speed'].values)
-                    colors.append(self._get_route_color(route_code))
-                    labels.append(self._get_route_label(route_code, label_type='short'))
+                if data_by_route:
+                    parts = ax.violinplot(
+                        data_by_route, positions=range(len(data_by_route)),
+                        showmeans=True, showmedians=True, widths=0.7,
+                    )
 
-            # Create violin plot
-            if data_by_route:
-                parts = ax.violinplot(data_by_route, positions=range(len(data_by_route)),
-                                     showmeans=True, showmedians=True, widths=0.7)
+                    for i, pc in enumerate(parts['bodies']):
+                        pc.set_facecolor(colors[i])
+                        pc.set_alpha(0.7)
+                        pc.set_edgecolor('black')
+                        pc.set_linewidth(1)
 
-                # Color the violin plots
-                for i, pc in enumerate(parts['bodies']):
-                    pc.set_facecolor(colors[i])
-                    pc.set_alpha(0.7)
-                    pc.set_edgecolor('black')
-                    pc.set_linewidth(1)
+                    parts['cmeans'].set_edgecolor('darkred')
+                    parts['cmeans'].set_linewidth(2)
+                    parts['cmedians'].set_edgecolor('darkblue')
+                    parts['cmedians'].set_linewidth(2)
 
-                # Style the mean and median lines
-                parts['cmeans'].set_edgecolor('darkred')
-                parts['cmeans'].set_linewidth(2)
-                parts['cmedians'].set_edgecolor('darkblue')
-                parts['cmedians'].set_linewidth(2)
+                    ax.set_xticks(range(len(labels)))
+                    ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=10)
+                    ax.set_ylabel('Average Speed (km/h)', fontsize=12, fontweight='bold')
+                    ax.grid(True, alpha=0.3, linestyle='--', axis='y')
+                    ax.set_axisbelow(True)
 
-                # Set x-axis labels
-                ax.set_xticks(range(len(labels)))
-                ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=9)
+                    total_samples = len(time_data)
+                    ax.text(
+                        0.98, 0.98, f'n={total_samples:,}',
+                        transform=ax.transAxes, ha='right', va='top',
+                        fontsize=10, style='italic', color='gray',
+                        bbox=dict(boxstyle='round,pad=0.3', facecolor='white',
+                                  edgecolor='gray', alpha=0.7),
+                    )
 
-                # Set y-axis label
-                ax.set_ylabel('Average Speed (km/h)', fontsize=11, fontweight='bold')
+            ax.set_title(
+                f'{time_labels[time_cat]}  ({idx + 1}/{len(time_categories)})',
+                fontsize=14, fontweight='bold', pad=15,
+            )
+            fig.text(
+                0.5, 0.01,
+                'Red line = mean, Blue line = median. Wider sections = more common speeds.',
+                ha='center', fontsize=10, style='italic', color='gray',
+            )
+            plt.tight_layout(rect=[0, 0.03, 1, 1])
+            plt.show()
 
-                # Add grid
-                ax.grid(True, alpha=0.3, linestyle='--', axis='y')
-                ax.set_axisbelow(True)
+        state = {'idx': 0}
+        out = widgets.Output()
 
-                # Set title
-                ax.set_title(time_labels[time_cat], fontsize=12, fontweight='bold', pad=10)
+        def refresh():
+            with out:
+                clear_output(wait=True)
+                render_chart(state['idx'])
 
-                # Add sample size annotation
-                total_samples = len(time_data)
-                ax.text(0.98, 0.98, f'n={total_samples:,}',
-                       transform=ax.transAxes, ha='right', va='top',
-                       fontsize=9, style='italic', color='gray',
-                       bbox=dict(boxstyle='round,pad=0.3', facecolor='white',
-                                edgecolor='gray', alpha=0.7))
+        def on_prev(_):
+            state['idx'] = (state['idx'] - 1) % len(time_categories)
+            refresh()
 
-        # Add overall title
-        fig.suptitle('Speed Distributions by Time of Day',
-                    fontsize=16, fontweight='bold', y=0.995)
+        def on_next(_):
+            state['idx'] = (state['idx'] + 1) % len(time_categories)
+            refresh()
 
-        # Add interpretation note
-        fig.text(0.5, 0.01,
-                'Note: Violin plots show the full distribution of speeds for each route during each time period. '
-                'Wider sections indicate more common speeds. Red line = mean, Blue line = median.',
-                ha='center', fontsize=10, style='italic', color='gray', wrap=True)
+        prev_btn = widgets.Button(description='◀ Previous', button_style='info')
+        next_btn = widgets.Button(description='Next ▶', button_style='info')
+        prev_btn.on_click(on_prev)
+        next_btn.on_click(on_next)
 
-        plt.tight_layout(rect=[0, 0.02, 1, 0.99])
-        plt.show()
+        display(widgets.VBox([widgets.HBox([prev_btn, next_btn]), out]))
+        refresh()
 
 
 
