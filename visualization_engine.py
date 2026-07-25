@@ -2534,7 +2534,8 @@ class VisualizationEngine:
         plt.tight_layout(rect=[0, 0.03, 1, 1])
         plt.show()
 
-    def plot_typical_day_profile(self, day_of_week: Optional[str] = None) -> None:
+    def plot_typical_day_profile(self, day_of_week: Optional[str] = None,
+                                  route_codes: list[str] | None = None) -> None:
         """
         Generate typical day profile for each day-of-week with variance bands.
 
@@ -2542,105 +2543,169 @@ class VisualizationEngine:
         with shaded regions showing variability (±1 standard deviation).
 
         If day_of_week is specified, shows only that day. Otherwise, shows all days
-        in a grid layout.
+        as a single horizontal plot from Monday 12 AM to Sunday midnight.
 
         Parameters
         ----------
         day_of_week : str, optional
             Specific day to plot ('Monday', 'Tuesday', etc.). If None, plots all days.
+        route_codes : list[str], optional
+            Routes to include. If None, includes all routes.
 
         Examples
         --------
         >>> viz.plot_typical_day_profile('Monday')
         >>> viz.plot_typical_day_profile()  # All days
+        >>> viz.plot_typical_day_profile(route_codes=['2HM2+P8|XJV5+RG'])
         """
         # Ensure temporal features exist
         df = self._ensure_temporal_features(self.df)
 
-        # Determine which days to plot
+        days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
         if day_of_week:
-            days_to_plot = [day_of_week]
-        else:
-            days_to_plot = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
-        # Create subplots
-        n_days = len(days_to_plot)
-        if n_days == 1:
-            fig, axes = plt.subplots(1, 1, figsize=(12, 6))
-            axes = [axes]
-        else:
-            n_cols = 2
-            n_rows = (n_days + n_cols - 1) // n_cols
-            fig, axes = plt.subplots(n_rows, n_cols, figsize=(14, 5 * n_rows))
-            axes = axes.flatten() if n_days > 1 else [axes]
-
-        for idx, day in enumerate(days_to_plot):
-            ax = axes[idx]
-
-            # Filter data for this day
-            day_data = df[df['day_of_week'] == day]
+            # --- Single-day plot (unch behaviour) ---
+            fig, ax = plt.subplots(figsize=(12, 6), dpi=300)
+            day_data = df[df['day_of_week'] == day_of_week]
 
             if day_data.empty:
-                ax.text(0.5, 0.5, f'No data for {day}',
-                       ha='center', va='center', transform=ax.transAxes)
-                ax.set_xticks([])
-                ax.set_yticks([])
-                continue
+                ax.text(0.5, 0.5, f'No data for {day_of_week}',
+                        ha='center', va='center', transform=ax.transAxes)
+            else:
+                for route_code in self.routes:
+                    route_day_data = day_data[day_data['route_code'] == route_code]
+                    if route_day_data.empty:
+                        continue
+                    hourly_stats = route_day_data.groupby('hour')['avg_speed'].agg([
+                        ('mean', 'mean'), ('std', 'std')
+                    ]).reset_index()
+                    hourly_stats = hourly_stats.set_index('hour').reindex(range(24)).reset_index()
+                    route_color = self._get_route_color(route_code)
+                    route_label = self._get_route_label(route_code, 'short')
+                    ax.plot(hourly_stats['hour'], hourly_stats['mean'],
+                            color=route_color, linewidth=2, label=route_label, alpha=0.9)
+                    valid_mask = hourly_stats['mean'].notna()
+                    if valid_mask.any():
+                        hours = hourly_stats.loc[valid_mask, 'hour']
+                        means = hourly_stats.loc[valid_mask, 'mean']
+                        stds = hourly_stats.loc[valid_mask, 'std'].fillna(0)
+                        ax.fill_between(hours, means - stds, means + stds,
+                                        color=route_color, alpha=0.15, linewidth=0)
 
-            # Plot each route
-            for route_code in self.routes:
-                route_day_data = day_data[day_data['route_code'] == route_code]
-
-                if route_day_data.empty:
-                    continue
-
-                # Compute hourly statistics
-                hourly_stats = route_day_data.groupby('hour')['avg_speed'].agg([
-                    ('mean', 'mean'),
-                    ('std', 'std')
-                ]).reset_index()
-
-                # Ensure all hours are present
-                hourly_stats = hourly_stats.set_index('hour').reindex(range(24)).reset_index()
-
-                # Get route color and label
-                route_color = self._get_route_color(route_code)
-                route_label = self._get_route_label(route_code, 'short')
-
-                # Plot mean line
-                ax.plot(hourly_stats['hour'], hourly_stats['mean'],
-                       color=route_color, linewidth=2, label=route_label, alpha=0.9)
-
-                # Add variance band
-                valid_mask = hourly_stats['mean'].notna()
-                if valid_mask.any():
-                    hours = hourly_stats.loc[valid_mask, 'hour']
-                    means = hourly_stats.loc[valid_mask, 'mean']
-                    stds = hourly_stats.loc[valid_mask, 'std'].fillna(0)
-
-                    ax.fill_between(hours, means - stds, means + stds,
-                                   color=route_color, alpha=0.15, linewidth=0)
-
-            # Format subplot
             ax.set_xlabel('Hour of Day', fontsize=11, fontweight='bold')
             ax.set_ylabel('Avg Speed (km/h)', fontsize=11, fontweight='bold')
-            ax.set_title(f'{day}', fontsize=12, fontweight='bold')
+            ax.set_title(f'Typical Day Profile: {day_of_week}\n(Shaded regions show ±1 standard deviation)',
+                         fontsize=14, fontweight='bold', pad=15)
             ax.set_xticks(range(0, 24, 3))
             ax.set_xticklabels([self._format_hour_label(h) for h in range(0, 24, 3)],
-                              rotation=45, ha='right')
+                               rotation=45, ha='right')
             ax.grid(True, alpha=0.3, linestyle='--', linewidth=0.5)
-            ax.legend(loc='best', framealpha=0.9, fontsize=8)
+            plt.tight_layout()
+            plt.show()
+            return
 
-        # Hide extra subplots
-        for idx in range(n_days, len(axes)):
-            axes[idx].set_visible(False)
+        # --- All-days: single horizontal plot, Monday 12 AM → Sunday midnight ---
+        selected_routes = self.routes if route_codes is None else [r for r in self.routes if r in set(route_codes)]
 
-        # Add overall title
-        title = f'Typical Day Profile: {day_of_week}' if day_of_week else 'Typical Day Profiles: All Days'
-        fig.suptitle(title + '\n(Shaded regions show ±1 standard deviation)',
-                    fontsize=14, fontweight='bold', y=0.995)
+        if not selected_routes:
+            warnings.warn("No valid routes selected for typical day profile plot.")
+            return
 
-        plt.tight_layout(rect=[0, 0, 1, 0.99])
+        fig, ax = plt.subplots(figsize=(20, 14), dpi=150)
+
+        day_offset = {day: i * 24 for i, day in enumerate(days_of_week)}
+
+        for route_code in selected_routes:
+            route_data = df[df['route_code'] == route_code]
+            if route_data.empty:
+                continue
+
+            route_color = self._get_route_color(route_code)
+            route_label = self._get_route_label(route_code, 'short')
+
+            all_hours = []
+            all_means = []
+            all_stds = []
+
+            for day in days_of_week:
+                day_data = route_data[route_data['day_of_week'] == day]
+                if day_data.empty:
+                    all_hours.extend([day_offset[day] + h for h in range(24)])
+                    all_means.extend([np.nan] * 24)
+                    all_stds.extend([np.nan] * 24)
+                    continue
+                hourly_stats = day_data.groupby('hour')['avg_speed'].agg([
+                    ('mean', 'mean'), ('std', 'std')
+                ]).reset_index()
+                hourly_stats = hourly_stats.set_index('hour').reindex(range(24)).reset_index()
+                for h in range(24):
+                    all_hours.append(day_offset[day] + h)
+                    all_means.append(hourly_stats.loc[h, 'mean'])
+                    all_stds.append(hourly_stats.loc[h, 'std'])
+
+            all_hours = np.array(all_hours)
+            all_means = np.array(all_means, dtype=float)
+            all_stds = np.array(all_stds, dtype=float)
+
+            valid_mask = ~np.isnan(all_means)
+            if valid_mask.sum() >= 4:
+                vh = all_hours[valid_mask]
+                vm = all_means[valid_mask]
+                vs = np.nan_to_num(all_stds[valid_mask])
+                f_mean = interp1d(vh, vm, kind='cubic', bounds_error=False, fill_value='extrapolate')
+                f_std = interp1d(vh, vs, kind='linear', bounds_error=False, fill_value='extrapolate')
+                smooth_hours = np.linspace(vh.min(), vh.max(), len(vh) * 5)
+                smooth_means = f_mean(smooth_hours)
+                smooth_stds = f_std(smooth_hours)
+                ax.plot(smooth_hours, smooth_means,
+                        color=route_color, linewidth=2, label=route_label, alpha=0.9)
+                ax.fill_between(smooth_hours, smooth_means - smooth_stds, smooth_means + smooth_stds,
+                                color=route_color, alpha=0.12, linewidth=0)
+            else:
+                ax.plot(all_hours, all_means,
+                        color=route_color, linewidth=2, label=route_label, alpha=0.9)
+                if valid_mask.any():
+                    vh = all_hours[valid_mask]
+                    vm = all_means[valid_mask]
+                    vs = np.nan_to_num(all_stds[valid_mask])
+                    ax.fill_between(vh, vm - vs, vm + vs,
+                                    color=route_color, alpha=0.12, linewidth=0)
+
+        # X-axis: day boundaries with labels, hour ticks every 3 hours
+        ax.set_xlim(0, 168)
+        ax.set_xticks(range(0, 169, 3))
+        hour_labels = []
+        for tick in range(0, 169, 3):
+            day_idx = tick // 24
+            hour = tick % 24
+            if hour == 0 and day_idx < 7:
+                hour_labels.append(days_of_week[day_idx][:3])
+            else:
+                hour_labels.append(f'{hour:02d}')
+        ax.set_xticklabels(hour_labels, rotation=45, ha='right', fontsize=9)
+
+        # Vertical separators between days
+        for i in range(1, 7):
+            ax.axvline(x=i * 24, color='gray', linestyle='-', linewidth=0.8, alpha=0.5)
+
+        # Day name labels at the top of each day section
+        for i, day in enumerate(days_of_week):
+            ax.text(i * 24 + 12, 1.02, day, ha='center', va='bottom',
+                    fontsize=11, fontweight='bold',
+                    transform=ax.get_xaxis_transform(),
+                    bbox=dict(boxstyle='round,pad=0.2', facecolor='lightyellow',
+                              edgecolor='gray', alpha=0.7))
+
+        ax.set_xlabel('Day & Hour of Week', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Avg Speed (km/h)', fontsize=12, fontweight='bold')
+        ax.set_title('Typical Week Profile (Mon 12 AM → Sun Midnight)',
+                     fontsize=14, fontweight='bold', pad=80)
+        fig.text(0.5, 0.89, '(Shaded regions show ±1 standard deviation)',
+                 fontsize=11, fontweight='normal', ha='center', va='center')
+        ax.grid(True, alpha=0.3, linestyle='--', linewidth=0.5)
+        ax.set_axisbelow(True)
+
+        fig.subplots_adjust(left=0.05, right=0.98, top=0.82, bottom=0.15)
         plt.show()
 
     def plot_current_vs_predicted(self, route_code: str, reference_date: Optional[str] = None) -> None:
