@@ -1,0 +1,35 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/data:ro              # entire repo mounted read-only
+      - traffic-output:/output  # analysis artifacts
+    environment:
+      TRAFFIC_MODE: api
+      DATA_DIR: /data
+      OUTPUT_DIR: /output
+      TRAFFIC_LOG_LEVEL: info
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/livez"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+    restart: "no"
+
+  batch:
+    build: .
+    profiles: ["batch"]
+    volumes:
+      - .:/data:ro
+      - traffic-output:/output
+    environment:
+      TRAFFIC_MODE: batch
+      DATA_DIR: /data
+      OUTPUT_DIR: /output
+    command: ["python", "-m", "service.cli"]
+
+volumes:
+  traffic-output:
