@@ -511,7 +511,7 @@ for route in routes_df['route_code']:
 ### Integration with Existing Notebook
 
 ```python
-# In traffic_visual.ipynb, add new cells:
+# In traffic_analysis_examples.ipynb, add new cells:
 
 # Cell 1: Import new modules
 from traffic_analyzer import TrafficAnalyzer

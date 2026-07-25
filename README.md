@@ -87,9 +87,6 @@ uv run python tools/traffic_snapshot.py >> data/csv-traffic.csv
 ### 3. Explore the data in a notebook
 
 ```bash
-# Quick visual exploration
-uv run jupyter notebook traffic_visual.ipynb
-
 # Comprehensive analysis examples
 uv run jupyter notebook traffic_analysis_examples.ipynb
 ```
