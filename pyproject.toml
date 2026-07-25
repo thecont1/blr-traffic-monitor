@@ -5,9 +5,22 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "fastapi>=0.115.0",
+    "matplotlib>=3.11.1",
+    "numpy>=2.3.2",
+    "pandas>=2.3.1",
+    "pydantic-settings>=2.0.0",
+    "python-dotenv>=1.1.1",
+    "scikit-learn>=1.8.0",
+    "scipy>=1.15.0",
+    "statsmodels>=0.14.6",
+    "uvicorn[standard]>=0.34.0",
+]
+
+[dependency-groups]
+scraping = [
     "beautifulsoup4>=4.14.3",
     "lxml>=6.1.1",
-    "numpy>=2.3.2",
     "openlocationcode>=1.0.1",
     "pandas>=2.3.1",
     "pillow>=12.1.1",
@@ -16,14 +29,10 @@ dependencies = [
     "selenium>=4.35.0",
     "timezonefinder>=8.1.0",
 ]
-
-[dependency-groups]
 analysis = [
     "matplotlib>=3.10.8",
     "plotly>=6.5.2",
-    "scikit-learn>=1.8.0",
     "seaborn>=0.13.2",
-    "statsmodels>=0.14.6",
     "tqdm>=4.67.1",
 ]
 notebook = [
@@ -34,6 +43,7 @@ notebook = [
     "pykernel>=0.1.6",
 ]
 test = [
+    "httpx>=0.28.1",
     "hypothesis>=6.151.9",
     "pytest>=9.0.2",
     "pytest-cov>=6.1.1",
