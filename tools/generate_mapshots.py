@@ -39,7 +39,7 @@ REF_LAT = 12.9514242
 REF_LNG = 77.6590212
 
 SCRIPT_DIR = Path(__file__).parent
-DATA_DIR = SCRIPT_DIR / "data"
+DATA_DIR = SCRIPT_DIR.parent / "data"
 OUT_DIR = SCRIPT_DIR.parent / "traffiCOracle" / "public" / "mapshots"
 
 

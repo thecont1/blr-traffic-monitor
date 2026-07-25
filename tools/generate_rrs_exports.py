@@ -32,7 +32,7 @@ from rrs_scoring import (
     DEFAULT_WINDOW_DAYS,
 )
 
-DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR = Path(__file__).parent.parent / "data"
 TRAFFIC_CSV = DATA_DIR / "csv-traffic-bangalore.csv"
 ROUTES_CSV = DATA_DIR / "csv-routes-bangalore.csv"
 
