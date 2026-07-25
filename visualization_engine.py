@@ -14,6 +14,7 @@ import seaborn as sns
 from typing import Dict, List, Optional, Any
 import warnings
 from sklearn.preprocessing import MinMaxScaler
+from scipy.interpolate import interp1d
 
 
 # ============================================================================
@@ -795,8 +796,7 @@ class VisualizationEngine:
         # Format plot
         ax.set_xlabel('Hour of Day', fontsize=12, fontweight='bold')
         ax.set_ylabel('Average Speed (km/h)', fontsize=12, fontweight='bold')
-        title_suffix = 'All Routes Comparison' if route_codes is None else f"Selected Routes ({len(selected_routes)})"
-        ax.set_title(f'Hour-of-Day Speed Profiles: {title_suffix}\n'
+        ax.set_title('Hour-of-Day Speed Profiles\n'
                     '(Shaded regions show ±1 standard deviation)',
                     fontsize=14, fontweight='bold', pad=20)
 
