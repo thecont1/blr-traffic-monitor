@@ -62,11 +62,6 @@ def preprocess_traffic_data(df: pd.DataFrame) -> pd.DataFrame:
         if 'duration' in df_clean.columns and 'distance' in df_clean.columns:
             df_clean['avg_speed'] = df_clean['distance'] / (df_clean['duration'] / 60)
 
-    # Check for missing values
-    missing_counts = df_clean.isnull().sum()
-    if missing_counts.any():
-        warnings.warn(f"Missing values detected:\n{missing_counts[missing_counts > 0]}")
-
     # Remove rows with missing critical values
     critical_cols = ['route_code', 'duration', 'distance']
     if 'avg_speed' in df_clean.columns:
