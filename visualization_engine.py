@@ -324,7 +324,7 @@ class VisualizationEngine:
     # Temporal Pattern Visualizations
     # ========================================================================
 
-    def plot_hourly_heatmap(self, route_code: Optional[str] = None) -> None:
+    def plot_hourly_heatmap(self, route_code: Optional[str] = None):
         """
         Generate heatmap showing average speed by hour-of-day and day-of-week.
 
@@ -431,7 +431,7 @@ class VisualizationEngine:
             axes[idx].set_visible(False)
 
         plt.tight_layout()
-        plt.show()
+        return fig
 
     def plot_calendar_heatmap(self, route_code: str) -> None:
         """
